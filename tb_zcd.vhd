@@ -5,33 +5,13 @@ use ieee.std_logic_1164.all;
 --! Arithmetic functions.
 use ieee.numeric_std.all;
 --
-library std;
-use std.textio.all;
---
-library src_lib;
--- use src_lib.types_declaration_zcd_pkg.all;
--- vunit
-library vunit_lib;
-context vunit_lib.vunit_context;
--- use vunit_lib.array_pkg.all;
--- use vunit_lib.lang.all;
--- use vunit_lib.string_ops.all;
--- use vunit_lib.dictionary.all;
--- use vunit_lib.path.all;
--- use vunit_lib.log_types_pkg.all;
--- use vunit_lib.log_special_types_pkg.all;
--- use vunit_lib.log_pkg.all;
--- use vunit_lib.check_types_pkg.all;
--- use vunit_lib.check_special_types_pkg.all;
--- use vunit_lib.check_pkg.all;
--- use vunit_lib.run_types_pkg.all;
--- use vunit_lib.run_special_types_pkg.all;
--- use vunit_lib.run_base_pkg.all;
--- use vunit_lib.run_pkg.all;
+USE std.textio.ALL;
+USE ieee.std_logic_textio.ALL;
+use work.frame_packg.all;
+use work.wr_csv.all;
+
 
 entity zcd_tb is
-  --vunit
-  generic (runner_cfg : string);
 end;
 
 architecture bench of zcd_tb is
@@ -39,35 +19,76 @@ architecture bench of zcd_tb is
   -- Generics
   -- clock period
   constant clk_period : time := 5 ns;
+  constant start_period : time := 125 us;
+  constant n_rows:integer:=3;
+  constant n_cols:integer:=3;
   -- Signal ports
+    signal clk_in     : std_logic;
+  signal start      : std_logic;
+  signal frame_in   : frame_typ;
+  signal rdy        : std_logic;
+  signal zcd_result : unsigned (8 downto 0);
+
+component zcd is
+  port (
+    clk_in     : in  std_logic;
+    start      : in  std_logic;
+    frame_in   : in  frame_typ;
+    rdy        : out std_logic;
+    zcd_result : out unsigned (8 downto 0)
+  );
+end component;
+
+
 
 begin
   -- Instance
-  zcd_i : entity src_lib.zcd;
+  zcd_i : zcd
+  port map (
+    clk_in     => clk_in,
+    start      => start,
+    frame_in   => frame_in,
+    rdy        => rdy,
+    zcd_result => zcd_result
+  );
 
   main : process
-  begin
-    test_runner_setup(runner, runner_cfg);
-    while test_suite loop
-      if run("test_alive") then
-        info("Hello world test_alive");
-        wait for 100 ns;
-        test_runner_cleanup(runner);
+  file my_csv_file: text;
+  variable current_line: line;
+  variable read_ok : boolean;
+  variable read_char: character;
+  variable x: work.wr_csv.array_2D;
+  variable x_i: integer;
+  variable counter: integer :=0;
 
-      elsif run("test_0") then
-        info("Hello world test_0");
-        wait for 100 ns;
-        test_runner_cleanup(runner);
-      end if;
-    end loop;
+  begin
+    file_open(my_csv_file,"csv_test.csv",read_mode);
+    wait until rising_edge (start);
+      x:= read_integer(my_csv_file,3);
+      while counter<2048 loop
+        for i in 0 to 255 loop
+          x_i := x(counter,0);
+          frame_in(i) <= to_signed(x_i,16);
+          counter:=counter+1;
+        end loop;
+        wait for 125 us;
+      end loop;
   end process;
 
-  -- clk_process :process
-  -- begin
-  --   clk <= '1';
-  --   wait for clk_period/2;
-  --   clk <= '0';
-  --   wait for clk_period/2;
-  -- end process;
+   clk_process :process
+   begin
+    clk_in <= '1';
+    wait for clk_period/2;
+     clk_in <= '0';
+     wait for clk_period/2;
+   end process;
+
+   start_process :process
+   begin
+    start <= '1';
+    wait for start_period/2;
+     start <= '0';
+     wait for start_period/2;
+   end process;
 
 end;
