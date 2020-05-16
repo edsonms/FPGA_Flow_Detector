@@ -1,5 +1,5 @@
 -- Author: Edson Manoel da Silva --
-=-- File : demux_8bit.vhd --
+-- File : demux_8bit.vhd --
 --Design units:
 --entity demux
 --function: 8 bit demultiplexer
@@ -41,19 +41,24 @@ architecture arch of demux_8bit is
     );
   end component;
 
+signal a_wire,b_wire,d_wire : std_logic_vector (7 downto 0);
 
 begin
 
   gen_mux:
-  for I in 0 to 7 generate
+  for i in 0 to 7 generate
     demux_i : demux
     port map (
-      a   => a(i),
-      b   => b(i),
-      sel => sel(i),
-      d   => d(i)
+      a   => a_wire(i),
+      b   => b_wire(i),
+      sel => sel,
+      d   => d_wire(i)
     );
 
   end generate;
+
+a <= a_wire;
+b <= b_wire;
+d_wire <= d;
 
 end architecture;

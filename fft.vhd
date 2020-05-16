@@ -56,23 +56,23 @@ architecture behaviour of fft is
   signal state_reg,state_next:state_type := rst;
 
   type state2_type is
-    (idle, loop1, loop2, loop3,update_UR_UI,update_TR,finished);
+    (idle, loop1, loop2, loop3,loop3_2, loop3_3, loop3_4, update_UR_UI,update_TR,finished);
   signal state2_reg,state2_next:state2_type;
 
   signal bitrev: unsigned (7 downto 0);
   signal bitrev_start: std_logic;
   signal butterfly_start: std_logic;
   signal sub_out,sub2_out,adder_out,adder2_out,adder3_out,adder6_out,adder4_out: integer;
-  signal counter_full,counter_2_full,counter_3_full,counter_4_full: std_logic;
-  signal frame_reversed_reg,frame_reversed_next,frame_in_reg,frame_butterfly_reg,frame_butterfly_next,re_reg,re_next,im_reg,im_next: std_logic_vector(15 downto 0);
+  signal sel1, sel2, sel3,rst_mem,WE, WE2, WE3,counter_full,counter_2_full,counter_3_full,counter_4_full: std_logic;
+  signal a,b,a2,b2,data_reversed_out,data_reversed,re_reg,re_next,im_reg,im_next: std_logic_vector(15 downto 0);
   signal counter_reg,counter2_reg,counter3_reg,counter4_reg,counter5_reg:integer;
   signal counter_next,counter_2_next,counter_3_next,counter_4_next,counter_5_next:integer;
   signal left_shift_out,right_shift_out, LE_reg, LE_next,LE_D2_reg,LE_D2_next: signed(7 downto 0);
   signal adder5_out: signed(7 downto 0);
   signal cos_out: signed(7 downto 0);
   signal sin_out,inverter_out: signed(7 downto 0);
-  signal dummy_out1: std_logic_vector(7 downto 0);
-  signal dummy_out2: std_logic_vector(7 downto 0);
+  signal bitrev_address_reg,read_address_reg,writing_address_reg,writing_address_next,read_address_next,Address3_reg,Address3_next,Address4_reg,Address, Address2: std_logic_vector(7 downto 0);
+  signal dummy_out1,dummy_out2: std_logic_vector(7 downto 0);
   signal sub4_out: signed(15 downto 0);
   signal sub5_out: signed(15 downto 0);
   signal adder8_out: signed(15 downto 0);
@@ -189,7 +189,7 @@ port map (
   d   => read_address_reg
 );
 
-demux_16bit_i : mux_16bit -- ping pong writing control
+demux_16bit_i2 : demux_16bit -- ping pong writing control
 port map (
   a   => a2,
   b   => b2,
@@ -313,7 +313,7 @@ begin
   case( state_reg ) is
 
     when rst =>
-      couter_next <= 0;
+      counter_next <= 0;
 
     when idle =>
       counter_next <= counter_reg;
@@ -321,8 +321,7 @@ begin
     when counting =>
       counter_next <= adder_out;
       writing_address_next <= std_logic_vector(to_signed(counter_reg,8));
-      read_address_next <= bitrev;
-      data_reversed <= y;
+      read_address_next <= std_logic_vector(bitrev);
       Address3_next <= std_logic_vector(to_signed(counter_reg,8));
 
     when finished =>
@@ -396,7 +395,7 @@ fft_rdy <= '1' when state2_reg = finished else '0';
 butterfly_DataPathReg : process(clock,start,sub_out,adder6_out) -- Data Path: data register
 begin
   if (start = '0') then
-    frame_butterfly_reg <= (others => (others => '0'));
+    --frame_butterfly_reg <= (others => (others => '0'));
     counter2_reg <= 1;
     counter3_reg <= 1;
     counter4_reg <= sub_out;
@@ -404,7 +403,7 @@ begin
     UR_reg <= x"0001";
     UI_reg <= x"0000";
   elsif (rising_edge(clock)) then
-    frame_butterfly_reg <= frame_butterfly_next;
+    --frame_butterfly_reg <= frame_butterfly_next;
     counter2_reg <= counter_2_next;
     counter3_reg <= counter_3_next;
     counter4_reg <= counter_4_next;
@@ -422,15 +421,15 @@ begin
   end if;
 end process;
 
-butterfly_DataPathMux : process(state2_reg,frame_butterfly_reg,frame_reversed_reg,counter4_reg,counter5_reg,adder2_out,left_shift_out,right_shift_out,cos_out,adder5_out,adder3_out,sub2_out,adder6_out,adder4_out,sub3_out,adder7_out,sub4_out,sub5_out,adder8_out,adder9_out,sub6_out,adder10_out,UR_reg)
+butterfly_DataPathMux : process(state2_reg,counter4_reg,counter5_reg,adder2_out,left_shift_out,right_shift_out,cos_out,adder5_out,adder3_out,sub2_out,adder6_out,adder4_out,sub3_out,adder7_out,sub4_out,sub5_out,adder8_out,adder9_out,sub6_out,adder10_out,UR_reg)
 begin
   case( state2_reg ) is
 
     when idle =>
-      frame_butterfly_next <= (others => (others => '0'));
+     -- frame_butterfly_next <= (others => (others => '0'));
 
     when loop1 =>
-      frame_butterfly_next <= frame_reversed_reg;
+     -- frame_butterfly_next <= frame_reversed_reg;
       counter_2_next <= adder2_out;
       UR_next <= x"0001";
       UI_next <= x"0000";
@@ -453,12 +452,12 @@ begin
 
 
     when loop3_3 => -- escrevo em uma posicao de memoria 4
-      re_next(counter5_reg) <= sub4_out;
-      im_next(counter5_reg) <= sub5_out;
+      --re_next(counter5_reg) <= sub4_out;
+      --im_next(counter5_reg) <= sub5_out;
 
-    when loop3_3 => -- escrevo em outra posicao de memoria 4
-      re_next(counter4_reg) <= adder8_out;
-      im_next(counter4_reg) <= adder9_out;
+    when loop3_4 => -- escrevo em outra posicao de memoria 4
+      --re_next(counter4_reg) <= adder8_out;
+      --im_next(counter4_reg) <= adder9_out;
 
     when update_TR =>
       TR_next <= UR_reg;
@@ -468,7 +467,7 @@ begin
       UI_next <= resize(adder10_out,16);
 
     when others =>
-      frame_butterfly_next <= (others => (others => '0'));
+      --frame_butterfly_next <= (others => (others => '0'));
       counter_2_next <= 0;
       counter_3_next <= 0;
       counter_4_next <= 0;
@@ -496,17 +495,17 @@ adder5_out <= inverter_out + x"01";
 adder6_out <= to_integer(right_shift_out) + counter4_reg;
 sub2_out <= counter3_reg - 1;
 
-mult1_out <= frame_in(counter5_reg)*(UR_reg);
+--mult1_out <= frame_in(counter5_reg)*(UR_reg);
 mult2_out <= x"0000"*UI_reg; -- the imaginary part is considered zero. This time domain signal is only real
 sub3_out <= mult1_out - mult2_out;
-mult3_out <= frame_in(counter5_reg)*(UI_reg);
+--mult3_out <= frame_in(counter5_reg)*(UI_reg);
 mult4_out <= x"0000"*UR_reg; -- the imaginary part is considered zero. This time domain signal is only real
 adder7_out <= mult1_out + mult2_out;
 
-sub4_out <= frame_in(counter4_reg)-TR_reg;
-sub5_out <= frame_in(counter4_reg)-TI_reg;
-adder8_out <= frame_in(counter4_reg)+TR_reg;
-adder9_out <= frame_in(counter4_reg)+TI_reg;
+--sub4_out <= frame_in(counter4_reg)-TR_reg;
+--sub5_out <= frame_in(counter4_reg)-TI_reg;
+--adder8_out <= frame_in(counter4_reg)+TR_reg;
+--adder9_out <= frame_in(counter4_reg)+TI_reg;
 
 
 mult5_out <= TR_reg*SR_reg;

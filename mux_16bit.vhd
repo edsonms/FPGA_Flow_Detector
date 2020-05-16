@@ -41,6 +41,8 @@ architecture arch of mux_16bit is
     );
   end component;
 
+signal a_wire,b_wire,d_wire : std_logic_vector (15 downto 0);
+
 
 begin
 
@@ -51,8 +53,12 @@ begin
       a      => a(i),
       b      => b(i),
       sel    => sel,
-      y => y(i)
+      y => d_wire(i)
   );
   end generate;
+  
+a_wire <= a;
+b_wire <= b;
+y <= d_wire;
 
 end architecture;

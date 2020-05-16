@@ -1,5 +1,5 @@
 -- Author: Edson Manoel da Silva --
-=-- File : demux_16bit.vhd --
+-- File : demux_16bit.vhd --
 --Design units:
 --entity demux
 --function: 16 bit demultiplexer
@@ -41,6 +41,8 @@ architecture arch of demux_16bit is
     );
   end component;
 
+signal a_wire,b_wire,d_wire : std_logic_vector (15 downto 0);
+
 
 begin
 
@@ -50,10 +52,14 @@ begin
     port map (
       a   => a(i),
       b   => b(i),
-      sel => sel(i),
+      sel => sel,
       d   => d(i)
     );
 
   end generate;
+
+a <= a_wire;
+b <= b_wire;
+d_wire <= d;
 
 end architecture;
