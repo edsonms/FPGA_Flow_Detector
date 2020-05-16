@@ -20,8 +20,7 @@ architecture bench of zcd_tb is
   -- clock period
   constant clk_period : time := 5 ns;
   constant start_period : time := 125 us;
-  constant n_rows:integer:=3;
-  constant n_cols:integer:=3;
+
   -- Signal ports
     signal clk_in     : std_logic;
   signal start      : std_logic;
@@ -62,9 +61,9 @@ begin
   variable counter: integer :=0;
 
   begin
-    file_open(my_csv_file,"csv_test.csv",read_mode);
+    file_open(my_csv_file,"SAMPLES.CSV",read_mode);
     wait until rising_edge (start);
-      x:= read_integer(my_csv_file,3);
+      x:= read_integer(my_csv_file,1);
       while counter<2048 loop
         for i in 0 to 255 loop
           x_i := x(counter,0);

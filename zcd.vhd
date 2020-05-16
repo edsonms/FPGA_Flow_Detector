@@ -1,3 +1,21 @@
+-- Author: Edson Manoel da Silva --
+-- Zero cross detection
+-- File : fft.vhd --
+--Design units:
+--entity fft
+--function: Calculates the number of times a signal cross the zero axis
+--input: a frame of 256 samples of the input signal
+--output: the number of times the signal crossed zero in that frame
+--Library/package:
+--ieee.std-logic-1164: to use std-logic
+-- Synthesis and verification : GHDL
+-- Synthesis software: . . . GHDL
+--
+--
+--
+--Version 1.0:
+--Date: 5/2020
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -47,13 +65,12 @@ begin
         if(counter < frame_size)then
   				if ((frame_buffer(counter)(15))/=(frame_buffer(counter-1)(15)))then
   					zcd_result_buff <= zcd_result_buff + x"01";
-  				else 
+  				else
   					zcd_result_buff <= zcd_result_buff;
   				end if;
           rdy <= '0';
           counter <= counter + 1;
         else
-          zcd_result_buff <= zcd_result_buff;
           rdy <= '1';
         end if;
       end if;

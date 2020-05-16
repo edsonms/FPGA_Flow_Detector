@@ -10,8 +10,8 @@ USE ieee.std_logic_textio.ALL;
 
 package wr_csv is
 
-  constant row_max : integer:= 3; -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
-  constant col_max : integer:= 3; -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
+  constant row_max : integer:= 2048; -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
+  constant col_max : integer:= 1; -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
   type array_2D is array (row_max-1 downto 0,col_max-1 downto 0)of integer;
   impure function read_integer(file file_variable: text; n_cols:integer) return array_2D;
   --function read_std_logic_vector(file_address: text, n_rows: integer,n_cols:integer) return array of std_logic_vector;

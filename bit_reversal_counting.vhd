@@ -30,7 +30,7 @@ begin
     if start = '1' then
       if rising_edge(clock) then
         if (counter < size and reverse = x"00") then
-          reverse <= reverse + '1';
+          reverse <= reverse + x"01";
           counter <= counter + 1;
         else
           reverse <= (others => '0');
