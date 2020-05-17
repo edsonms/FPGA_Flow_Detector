@@ -50,10 +50,10 @@ begin
   for I in 0 to 15 generate
     demux_i : demux
     port map (
-      a   => a(i),
-      b   => b(i),
+      a   => a_wire(i),
+      b   => b_wire(i),
       sel => sel,
-      d   => d(i)
+      d   => d_wire(i)
     );
 
   end generate;
