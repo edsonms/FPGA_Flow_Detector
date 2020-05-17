@@ -5,16 +5,16 @@ use ieee.std_logic_1164.all;
 --! Arithmetic functions.
 use ieee.numeric_std.all;
 --
-use work.frame_packg.all;
+--use work.frame_packg.all;
 
 library std;
 use std.textio.all;
 --
---library src_lib;
--- use src_lib.types_declaration_fft_pkg.all;
+library src_lib;
+--use src_lib.types_declaration_fft_pkg.all;
 -- vunit
---library vunit_lib;
---context vunit_lib.vunit_context;
+library vunit_lib;
+context vunit_lib.vunit_context;
 -- use vunit_lib.array_pkg.all;
 -- use vunit_lib.lang.all;
 -- use vunit_lib.string_ops.all;
@@ -33,7 +33,7 @@ use std.textio.all;
 
 entity fft_tb is
   --vunit
-  --generic (runner_cfg : string);
+  generic (runner_cfg : string);
 end;
 
 architecture bench of fft_tb is
@@ -89,23 +89,23 @@ begin
 
   main : process
   begin
-    start <= '0';
-    wait for 100 ns;
-    start <= '1';
-    sample <= x"0001" after acquire_period/2;
-    --test_runner_setup(runner, runner_cfg);
-    --while test_suite loop
-      --if run("test_alive") then
-        --info("Hello world test_alive");
-        --wait for 100 ns;
-        --test_runner_cleanup(runner);
+    --start <= '0';
+    --wait for 100 ns;
+    --start <= '1';
+    --sample <= x"0001" after acquire_period/2;
+    test_runner_setup(runner, runner_cfg);
+    while test_suite loop
+      if run("test_alive") then
+        info("Hello world test_alive");
+        wait for 100 ns;
+        test_runner_cleanup(runner);
 
-      --elsif run("test_0") then
-        --info("Hello world test_0");
-        --wait for 100 ns;
-        --test_runner_cleanup(runner);
-      --end if;
-    --end loop;
+      elsif run("test_0") then
+        info("Hello world test_0");
+        wait for 100 ns;
+        test_runner_cleanup(runner);
+      end if;
+    end loop;
   end process;
 
    clk_process :process

@@ -1,0 +1,6 @@
+*.vcd
+*.o
+*.tcl
+*.log
+*.cf
+*.exe
