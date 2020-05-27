@@ -18,7 +18,7 @@ end entity;
 architecture arch of bit_reversal_counting is
 
   signal counter: integer := 0;
-  signal reverse: unsigned (0 to 7) := x"00";
+  signal reverse: unsigned (7 downto 0) := x"00";
 
 
 begin
@@ -29,19 +29,18 @@ begin
 
     if start = '1' then
       if rising_edge(clock) then
-        if (counter < size and reverse = x"00") then
+        if (counter < size) then
           reverse <= reverse + x"01";
           counter <= counter + 1;
-        else
-          reverse <= (others => '0');
         end if;
       end if;
     else
       reverse <= (others => '0');
+      counter <= 0;
     end if;
 
   end process;
 
-result(7 downto 0) <= reverse (0 to 7);
+result <= reverse(0) & reverse(1) & reverse(2) & reverse(3) & reverse(4) & reverse(5) & reverse(6) & reverse(7);
 
 end architecture;

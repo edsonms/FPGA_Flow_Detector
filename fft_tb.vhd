@@ -10,11 +10,11 @@ use ieee.numeric_std.all;
 library std;
 use std.textio.all;
 --
-library src_lib;
+--library src_lib;
 --use src_lib.types_declaration_fft_pkg.all;
 -- vunit
-library vunit_lib;
-context vunit_lib.vunit_context;
+--library vunit_lib;
+--context vunit_lib.vunit_context;
 -- use vunit_lib.array_pkg.all;
 -- use vunit_lib.lang.all;
 -- use vunit_lib.string_ops.all;
@@ -33,7 +33,7 @@ context vunit_lib.vunit_context;
 
 entity fft_tb is
   --vunit
-  generic (runner_cfg : string);
+  --generic (runner_cfg : string);
 end;
 
 architecture bench of fft_tb is
@@ -54,16 +54,12 @@ architecture bench of fft_tb is
   end component;
 
 
-  -- Generics
-  -- clock period
-  constant clk_period : time := 20 ns;
-  constant acquire_period : time := 244.14 us;
 
   -- Signal ports
-    signal clock      : std_logic;
-  signal acquire    : std_logic;
-  signal start      : std_logic;
-  signal sample     : std_logic_vector(15 downto 0);
+    signal clock      : std_logic := '0';
+  signal acquire    : std_logic := '0';
+  signal start      : std_logic := '0';
+  signal sample     : unsigned(15 downto 0) := x"0000";
   signal bitrev_rdy : std_logic;
   signal fft_rdy    : std_logic;
   signal out_addr   : std_logic_vector(7 downto 0);
@@ -78,7 +74,7 @@ begin
     clock      => clock,
     acquire    => acquire,
     start      => start,
-    sample     => sample,
+    sample     => std_logic_vector(sample),
     bitrev_rdy => bitrev_rdy,
     fft_rdy    => fft_rdy,
     out_addr   => out_addr,
@@ -87,41 +83,38 @@ begin
     im_x       => im_x
   );
 
+  process(clock,acquire)
+	begin
+		clock  <= NOT(clock) AFTER 20 ns;
+		acquire <= NOT(acquire) AFTER 500 ns;
+	end process;
+
+
   main : process
   begin
-    --start <= '0';
-    --wait for 100 ns;
-    --start <= '1';
-    --sample <= x"0001" after acquire_period/2;
-    test_runner_setup(runner, runner_cfg);
-    while test_suite loop
-      if run("test_alive") then
-        info("Hello world test_alive");
-        wait for 100 ns;
-        test_runner_cleanup(runner);
+    start <= '1' after 40 ns;
+    wait until rising_edge (clock);
+    if (sample = x"0000")then
+      sample <= x"0001" after 400 ns;
+    elsif (sample < x"0004")then
+      sample <= (sample + x"0001") after 1 us;
+    else
+      sample <= x"0001" after 1 us;
+    end if;
 
-      elsif run("test_0") then
-        info("Hello world test_0");
-        wait for 100 ns;
-        test_runner_cleanup(runner);
-      end if;
-    end loop;
+    --test_runner_setup(runner, runner_cfg);
+    --while test_suite loop
+      --if run("test_alive") then
+        --info("Hello world test_alive");
+        --wait for 100 ns;
+        --test_runner_cleanup(runner);
+
+      --elsif run("test_0") then
+        --info("Hello world test_0");
+        --wait for 100 ns;
+        --test_runner_cleanup(runner);
+      --end if;
+  --  end loop;
   end process;
-
-   clk_process :process
-   begin
-     clock <= '1';
-     wait for clk_period/2;
-     clock <= '0';
-     wait for clk_period/2;
-   end process;
-
-   acquire_process :process
-   begin
-     acquire <= '1';
-     wait for acquire_period/2;
-     acquire <= '0';
-     wait for acquire_period/2;
-   end process;
 
 end;

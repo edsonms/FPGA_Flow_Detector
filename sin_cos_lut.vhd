@@ -16,7 +16,7 @@ architecture arch of sin_cos_lut is
   -- Look up table for values of the sine and cosine function, from pi to pi/128 for use with an 256 point FFT
 
 begin
-  cos_out <= 	 "10000001" when theta = x"01" else
+  cos_out <= "10000001" when theta = x"01" else
       			 "00000000" when theta = x"02" else
       			 "01011010" when theta = x"04" else
       			 "01110110" when theta = x"08" else
@@ -24,10 +24,10 @@ begin
       			 "01111111" when theta = x"20" else
       			 "01111111" when theta = x"40" else
       			 "01111111" when theta = x"7F" else
-				 "10000001" when theta = x"FF" else
-      			 "ZZZZZZZZ";
+				     "10000001" when theta = x"FF" else
+      			 "00000000";
 
-  sin_out <= 	 "00000000" when theta = x"01" else
+  sin_out <= "00000000" when theta = x"01" else
       			 "01111111" when theta = x"02" else
       			 "01011010" when theta = x"04" else
       			 "00110001" when theta = x"08" else
@@ -35,7 +35,7 @@ begin
       			 "00001101" when theta = x"20" else
       			 "00000110" when theta = x"40" else
       			 "00000011" when theta = x"7F" else
-				 "00000000" when theta = x"FF" else
-      			 "ZZZZZZZZ";
+				     "00000000" when theta = x"FF" else
+      			 "00000000";
 
 end architecture;

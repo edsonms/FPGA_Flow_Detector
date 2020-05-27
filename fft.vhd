@@ -22,10 +22,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package frame_packg is
-  constant N : integer := 8; -- FFT N.o of points
-  constant NM1 : integer := 7; -- N-1
-  constant ND2 : integer := 4; -- N/2
-  constant M: integer := 3; -- M = log(N)/log(2) // for N=256, M=8
+  constant N : integer := 4; -- FFT N.o of points
+  constant NM1 : integer := 3; -- N-1
+  constant ND2 : integer := 2; -- N/2
+  constant M: integer := 2; -- M = log(N)/log(2) // for N=256, M=8
   --type frame_typ is array (NM1 downto 0) of signed(15 downto 0);
 end package frame_packg;
 
@@ -55,7 +55,7 @@ architecture behaviour of fft is
 
   type state_type is
     (rst,idle,counting,finished);
-  signal state_reg,state_next:state_type := rst;
+  signal state_reg,state_next:state_type;
 
   type state2_type is
     (idle, loop1, loop2, loop3,loop3_2, loop3_3, loop3_4, update_UR_UI,update_TR,finished);
@@ -65,15 +65,16 @@ architecture behaviour of fft is
   signal bitrev_start: std_logic;
   signal butterfly_start: std_logic;
   signal sub_out,sub2_out,adder0_out,adder1_out,adder2_out,adder3_out,adder6_out,adder4_out: integer;
-  signal sel1, sel2,sel3,rst_mem,rst_mem2,WE, WE2, WE3,WE4,counter0_full,counter1_full,counter_2_full,counter_3_full,counter_4_full: std_logic;
+  signal sel1_reg, sel2_reg,sel1_next,sel2_next,sel3,rst_mem,rst_mem2,WE_reg,WE_next, WE2_reg,WE2_next, WE3,WE4,counter0_full,counter1_full,counter_2_full,counter_3_full,counter_4_full,and_port,and_port2,inv_port,inv_port2: std_logic;
   signal a,b,a2,b2,data_reversed_out,data_reversed,re_reg,re_next,im_reg,im_next: std_logic_vector(15 downto 0);
-  signal counter0_reg,counter1_reg,counter2_reg,counter3_reg,counter4_reg,counter5_reg:integer;
+  signal counter0_reg,counter1_reg,counter3_reg,counter4_reg,counter5_reg:integer;
+  signal counter2_reg : integer := 1; -- !!!! LEMBRAR DE TIRAR ESSA INICIALIZACAO DE VALOR !!!!!!!
   signal counter0_next,counter1_next,counter_2_next,counter_3_next,counter_4_next,counter_5_next:integer;
   signal left_shift_out,right_shift_out, LE_reg, LE_next,LE_D2_reg,LE_D2_next: signed(7 downto 0);
   signal adder5_out: signed(7 downto 0);
   signal cos_out: signed(7 downto 0);
   signal sin_out,inverter_out: signed(7 downto 0);
-  signal butterfly_address_reg,butterfly_address_next,bitrev_address_wire,bitrev_address_next,read_address_reg,writing_address_reg,writing_address_next,read_address_next,Address3_reg,Address3_next,Address4_reg,Address4_next,Address, Address2: std_logic_vector(7 downto 0);
+  signal butterfly_address_reg,butterfly_address_next,bitrev_address_wire,bitrev_address_reg,read_address_reg,writing_address_reg,writing_address_next,read_address_next,Address3_reg,Address3_next,Address4_reg,Address4_next,Address, Address2: std_logic_vector(7 downto 0);
   signal dummy_out1,dummy_out2: std_logic_vector(7 downto 0);
   signal sub4_out: signed(15 downto 0);
   signal sub5_out: signed(15 downto 0);
@@ -171,7 +172,7 @@ mux_16bit_i : mux_16bit -- ping pong reading control
 port map (
   a   => a,
   b   => b,
-  sel => sel1,
+  sel => sel2_reg,
   y   => data_reversed
 );
 
@@ -180,7 +181,7 @@ demux_16bit_i2 : demux_16bit -- ping pong writing control
 port map (
   a   => a2,
   b   => b2,
-  sel => sel2,
+  sel => sel1_reg,
   d   => sample
 );
 
@@ -188,7 +189,7 @@ mux_8bit_i : mux_8bit -- Mem1 address control
 port map (
   a   => writing_address_reg,
   b   => read_address_reg,
-  sel => sel1,
+  sel => sel1_reg,
   y   => Address
 );
 
@@ -196,15 +197,15 @@ mux_8bit_i2 : mux_8bit -- Mem2 address control
 port map (
   a   => writing_address_reg,
   b   => read_address_reg,
-  sel => sel2,
+  sel => sel2_reg,
   y   => Address2
 );
 
 
 mux_8bit_i3 : mux_8bit -- bitrev address control
 port map (
-  a   => Address4_reg,
-  b   => Address3_reg,
+  a   => Address3_reg,
+  b   => Address4_reg,
   sel => butterfly_start,
   y   => bitrev_address_wire
 );
@@ -214,7 +215,7 @@ port map (
   Clock   => clock,
   ClockEn => '1',
   Reset   => rst_mem,
-  WE      => WE,
+  WE      => WE_reg,
   Address => Address,
   Data    => a2,
   Q       => a
@@ -225,7 +226,7 @@ port map (
   Clock   => clock,
   ClockEn => '1',
   Reset   => rst_mem,
-  WE      => WE2,
+  WE      => WE2_reg,
   Address => Address2,
   Data    => b2,
   Q       => b
@@ -237,7 +238,7 @@ port map (
   ClockEn => '1',
   Reset   => rst_mem,
   WE      => WE3,
-  Address => bitrev_address_wire,
+  Address => bitrev_address_reg,
   Data    => data_reversed,
   Q       => data_reversed_out
 );
@@ -265,29 +266,31 @@ port map (
 );
 ------------------- Bit Reverse Time Domain Operation --------------------------
 
-bitrev_stateREG : process(clock,state_next) -- Control path: state register
+bitrev_stateREG : process(clock) -- Control path: state register
 begin
   if (rising_edge(clock)) then
     state_reg <= state_next;
   end if;
 end process;
 
-bitrev_NextStateLogic : process(start,counter0_reg,counter0_full,counter1_full,state_reg) -- Control path: next state logic
+bitrev_NextStateLogic : process(state_reg,start,counter0_full,acquire) -- Control path: next state logic
 begin
 case( state_reg ) is
 
   when rst =>
-    state_next <= idle;
+    if (start = '1') then
+      state_next <= idle;
+    else
+      state_next <= rst;
+    end if;
 
   when idle =>
-    if (start = '1')then
+    if (rising_edge(acquire))then
       state_next <= counting;
-    else
-      state_next <= idle;
     end if;
 
   when counting =>
-    if (counter1_full = '0')then
+    if (counter0_full = '0')then
       state_next <= counting;
     else
       state_next <= finished;
@@ -306,71 +309,105 @@ butterfly_start <= '1' when state_reg = finished else '0';
 bitrev_rdy <= '1' when state_reg = finished else '0';
 bitrev_start <= '1' when state_reg = counting else '0';
 rst_mem <= '1'when state_reg = rst else '0';
-sel1 <= not (sel1) when state_reg = finished else '0' when state_reg = rst;
-sel2 <= not (sel1);
 sel3 <= '1' when state_reg = counting else '0';
 
-WE <= sel2;
-WE2 <= sel1;
 WE3<= '1' when state_reg = counting else '0';
 
-bitrev_DataPathReg : process(clock,counter0_next,counter1_next,read_address_next,Address3_next,writing_address_next,start) -- Data path: data register
+bitrev_DataPathReg : process(clock,start,acquire) -- Data path: data register
 begin
   if (start = '0') then
     counter0_reg <= 0;
     counter1_reg <= 0;
+    Address3_reg <= (others => '0');
+    writing_address_reg <= (others => '0');
+    read_address_reg <= (others => '0');
+    WE_reg <= '0';
+    WE2_reg <= '0';
+    sel1_reg <= '0';
+    sel2_reg <= '0';
   elsif (rising_edge(acquire))then
     counter0_reg <= counter0_next;
-    writing_address_reg <= writing_address_next;
   elsif (rising_edge(clock)) then
-    counter1_reg <= counter1_next;
+    if (counter1_full = '0')then
+      counter1_reg <= counter1_next;
+    end if;
+    WE_reg <= WE_next;
+    WE2_reg <= WE2_next;
+    writing_address_reg <= writing_address_next;
     read_address_reg <= read_address_next;
     Address3_reg <= Address3_next;
+    sel1_reg <= sel1_next;
+    sel2_reg <= sel2_next;
+    bitrev_address_reg <= bitrev_address_wire;
   end if;
 end process;
 
-bitrev_DataPathMux : process(state_reg,adder0_out,adder1_out,counter0_reg,counter1_reg,bitrev)
+bitrev_DataPathMux : process(state_reg,counter0_reg,counter1_reg,adder0_out,adder1_out,bitrev,and_port,and_port2)
 begin
   case( state_reg ) is
 
     when rst =>
       counter0_next <= 0;
       counter1_next <= 0;
+      writing_address_next <= (others => '0');
+      read_address_next <= (others => '0');
+      Address3_next <= (others => '0');
+      WE_next <= '0';
+      WE2_next <= '0';
+      sel1_next <= '0';
+      sel2_next <= '1';
 
     when idle =>
-      counter0_next <= counter0_reg;
-      counter1_next <= counter1_reg;
+      counter0_next <= 0;
+      counter1_next <= 0;
 
     when counting =>
+      WE_next <= and_port;
+      WE2_next <= and_port2;
       counter0_next <= adder0_out;
       counter1_next <= adder1_out;
       writing_address_next <= std_logic_vector(to_signed(counter0_reg,8));
-      read_address_next <= std_logic_vector(bitrev);
+      read_address_next <= std_logic_vector(shift_right(bitrev,6)); --!!!! LEMBRAR DE TIRAR ESSE SHIFT !!!!!!!
       Address3_next <= std_logic_vector(to_signed(counter1_reg,8));
 
     when finished =>
       counter0_next <= 0;
       counter1_next <= 0;
+      WE_next <= '0';
+      WE2_next <= '0';
+      sel1_next <= inv_port;
+      sel2_next <= sel1_reg;
 
     when others =>
       counter0_next <= 0;
       counter1_next <= 0;
+      writing_address_next <= (others => '0');
+      read_address_next <= (others => '0');
+      Address3_next <= (others => '0');
+      WE_next <= '0';
+      WE2_next <= '0';
+      sel1_next <= '0';
+      sel2_next <= '1';
+
   end case;
 end process;
 
 -- Data path combinational Logic
 adder0_out <= counter0_reg + 1;
 adder1_out <= counter1_reg + 1;
-
+inv_port <= not(sel1_reg);
+and_port <= inv_port and acquire;
+inv_port2 <= not(sel2_reg);
+and_port2 <= inv_port2 and acquire;
 
 -- Data path status Logic
-counter0_full <= '1' when counter0_reg = NM1 else '0';
-counter1_full <= '1' when counter1_reg = NM1 else '0';
+counter0_full <= '0' when state_reg = idle else '1' when counter0_reg = NM1;
+counter1_full <= '0' when state_reg = idle else '1' when counter1_reg = NM1;
 
 
 -------------- Butterfly Frequncy Domain Operation -----------------------------
 
-butterfly_stateREG : process(clock,Address4_next,state2_next) --Control Path: State Register
+butterfly_stateREG : process(clock) --Control Path: State Register
 begin
   if (rising_edge(clock)) then
     state2_reg <= state2_next;
@@ -379,7 +416,7 @@ begin
   end if;
 end process;
 
-butterfly_NextStateLogic : process(butterfly_start,state2_reg,counter_2_full,counter_3_full,counter_4_full) --Control Path: Next State Logic
+butterfly_NextStateLogic : process(state2_reg,butterfly_start,counter_2_full,counter_3_full,counter_4_full) --Control Path: Next State Logic
 begin
   case state2_reg is
     when idle =>
@@ -432,7 +469,7 @@ fft_rdy <= '1' when state2_reg = finished else '0';
 rst_mem2 <= '1' when state2_reg = idle else '0';
 
 
-butterfly_DataPathReg : process(clock,start,sub_out,adder6_out) -- Data Path: data register
+butterfly_DataPathReg : process(clock,start) -- Data Path: data register
 begin
   if (start = '0') then
     --frame_butterfly_reg <= (others => (others => '0'));
@@ -442,6 +479,16 @@ begin
     counter5_reg <= adder6_out;
     UR_reg <= x"0001";
     UI_reg <= x"0000";
+    LE_reg <= (others => '0');
+    LE_D2_reg <= (others => '0');
+    TR_reg <= (others => '0');
+    TI_reg <= (others => '0');
+    SR_reg <= (others => '0');
+    SI_reg <= (others => '0');
+    re_reg <= (others => '0');
+    im_reg <= (others => '0');
+    --butterfly_address_reg <= (others => '0');
+
   elsif (rising_edge(clock)) then
     --frame_butterfly_reg <= frame_butterfly_next;
     counter2_reg <= counter_2_next;
@@ -466,11 +513,25 @@ begin
   case( state2_reg ) is
 
     when idle =>
-     -- frame_butterfly_next <= (others => (others => '0'));
+      counter_2_next <= 1;
+      counter_3_next <= 1;
+      counter_4_next <= 0;
+      counter_5_next <= 0;
+      UR_next <= (others => '0');
+      UI_next <= (others => '0');
+      LE_next <= left_shift_out;
+      LE_D2_next <= (others => '0');
+      SR_next <= (others => '0');
+      SI_next <= (others => '0');
+      Address4_next <= (others => '0');
+      re_next <= (others => '0');
+      im_next <= (others => '0');
+      TR_next <= (others => '0');
+      TI_next <= (others => '0');
 
     when loop1 =>
      -- frame_butterfly_next <= frame_reversed_reg;
-      counter_2_next <= adder2_out;
+      counter_2_next <= adder2_out; -- the "L" variable from the first for in the the BASIC FFT example
       UR_next <= x"0001";
       UI_next <= x"0000";
       LE_next <= left_shift_out;
@@ -479,9 +540,9 @@ begin
       SI_next <= resize(adder5_out,16);
 
     when loop2 =>
-      counter_3_next <= adder3_out;
-      counter_4_next <= sub2_out;
-      counter_5_next <= adder6_out;
+      counter_3_next <= adder3_out; -- the "j" variable from the second for in the BASIC FFT example
+      counter_4_next <= sub2_out; -- the "jm" variable from the second for in the BASIC FFT example
+      counter_5_next <= adder6_out; -- the "ip" variable from the second for in the BASIC FFT example
       WE4 <= '0';
 
     when loop3 => -- le de uma posiçao de memoria 3
@@ -513,9 +574,8 @@ begin
       UI_next <= resize(adder10_out,16);
 
     when others =>
-      --frame_butterfly_next <= (others => (others => '0'));
-      counter_2_next <= 0;
-      counter_3_next <= 0;
+      counter_2_next <= 1;
+      counter_3_next <= 1;
       counter_4_next <= 0;
       counter_5_next <= 0;
       UR_next <= x"0001";
@@ -531,8 +591,8 @@ end process;
 
 -- Data path combinational logic
 adder2_out <= counter2_reg + 1;
-left_shift_out <= shift_left(to_signed(counter2_reg,8),2);
-right_shift_out <= shift_right(LE_reg,2);
+left_shift_out <= shift_left(x"02",counter2_reg-1);
+right_shift_out <= shift_right(LE_reg,1);
 adder3_out <= counter3_reg + 1;
 sub_out <= counter3_reg - 1;
 adder4_out <= counter4_reg + to_integer(left_shift_out);
