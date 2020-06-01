@@ -85,21 +85,21 @@ begin
 
   process(clock,acquire)
 	begin
-		clock  <= NOT(clock) AFTER 20 ns;
-		acquire <= NOT(acquire) AFTER 500 ns;
+		clock  <= NOT(clock) AFTER 100 ns; --5MHz
+		acquire <= NOT(acquire) AFTER 122.07 us;
 	end process;
 
 
   main : process
   begin
-    start <= '1' after 40 ns;
+    start <= '1' after 300 ns;
     wait until rising_edge (clock);
     if (sample = x"0000")then
-      sample <= x"0001" after 400 ns;
-    elsif (sample < x"0004")then
-      sample <= (sample + x"0001") after 1 us;
+      sample <= x"0CCD" after 121 us;
+    elsif (sample < x"3333")then
+      sample <= (sample + x"0CCD") after 244.14 us;
     else
-      sample <= x"0001" after 1 us;
+      sample <= x"0CCD" after 244.14 us;
     end if;
 
     --test_runner_setup(runner, runner_cfg);
