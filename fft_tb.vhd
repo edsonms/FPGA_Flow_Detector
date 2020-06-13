@@ -91,15 +91,29 @@ begin
 
 
   main : process
+  file outfile : text open write_mode is "fft_output.txt";
+  VARIABLE out_line : line;
+
   begin
-    start <= '1' after 300 ns;
+    start <= '1' after 500 ns;
     wait until rising_edge (clock);
     if (sample = x"0000")then
-      sample <= x"0CCD" after 121 us;
-    elsif (sample < x"3333")then
-      sample <= (sample + x"0CCD") after 244.14 us;
+      sample <= x"0148" after 121 us;
+    elsif (sample < x"0A3D")then
+      sample <= (sample + x"0148") after 244.14 us;
     else
-      sample <= x"0CCD" after 244.14 us;
+      sample <= x"0148" after 244.14 us;
+    end if;
+
+    if (out_we = '1') then
+      STD.textio.write(out_line,string'("Address:"));
+      STD.textio.write(out_line, integer'image(to_integer(unsigned(out_addr))));
+      STD.textio.write(out_line,string'(";"));
+      STD.textio.write(out_line, integer'image(to_integer(signed(re_x))));
+      STD.textio.write(out_line,string'(","));
+      STD.textio.write(out_line, integer'image(to_integer(signed(im_x))));
+      STD.textio.write(out_line,string'("i"));
+		  writeline(outfile, out_line);
     end if;
 
     --test_runner_setup(runner, runner_cfg);

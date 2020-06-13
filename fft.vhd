@@ -22,10 +22,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package frame_packg is
-  constant N : integer := 4; -- FFT N.o of points
-  constant NM1 : integer := 3; -- N-1
-  constant ND2 : integer := 2; -- N/2
-  constant M: integer := 2; -- M = log(N)/log(2) // for N=256, M=8
+  constant N : integer := 8; -- FFT N.o of points
+  constant NM1 : integer := 7; -- N-1
+  constant ND2 : integer := 4; -- N/2
+  constant M: integer := 3; -- M = log(N)/log(2) // for N=256, M=8
   --type frame_typ is array (NM1 downto 0) of signed(15 downto 0);
 end package frame_packg;
 
@@ -33,6 +33,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.frame_packg.all;
+use work.dsp_arith.all;
 
 entity fft is
   port
@@ -376,7 +377,7 @@ begin
       counter0_next <= adder0_out;
       counter1_next <= adder1_out;
       writing_address_next <= std_logic_vector(to_signed(counter0_reg,8));
-      read_address_next <= std_logic_vector(shift_right(bitrev,6)); --!!!! LEMBRAR DE TIRAR ESSE SHIFT !!!!!!!
+      read_address_next <= std_logic_vector(shift_right(bitrev,5)); --!!!! LEMBRAR DE TIRAR ESSE SHIFT !!!!!!!
       Address3_next <= std_logic_vector(to_signed(counter1_reg,8));
 
     when finished =>
@@ -601,8 +602,8 @@ begin
       butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg,8));
 
     when loop3_4 =>  -- le de outra posicao de memoria 3
-      TR_next <= sub3_out(31 downto 16);
-      TI_next <= adder7_out(31 downto 16);
+      TR_next <= round_to_16bit(sub3_out);
+      TI_next <= round_to_16bit(adder7_out);
       Address4_wire  <= std_logic_vector(to_signed(counter4_reg,8));
       butterfly_address_wire <= std_logic_vector(to_signed(counter4_reg,8));
 
@@ -650,8 +651,8 @@ begin
 
     when update_UR_UI =>
       counter_4_next <= sub2_out; -- the "i" variable from the second for in the BASIC FFT example
-      UR_next <= sub6_out(31 downto 16);
-      UI_next <= adder10_out(31 downto 16);
+      UR_next <= round_to_16bit(sub6_out);
+      UI_next <= round_to_16bit(adder10_out);
 
     when update_LE =>
       counter_3_next <= 1;
@@ -691,24 +692,24 @@ adder6_out      <= to_integer(right_shift_out) + counter4_reg;
 sub2_out        <= counter3_reg - 1;
 
 mult1_out  <= shift_left(signed(re_wire)*(UR_reg),1); -- shift compensates constants normalization error
-mult2_out  <= shift_left(x"0000"*UI_reg,1); -- the imaginary part is considered zero. This time domain signal is only real
-sub3_out   <= (mult1_out + X"00008000") - (mult2_out + X"00008000");
+mult2_out  <= shift_left(signed(im_wire)*UI_reg,1); -- the imaginary part is considered zero. This time domain signal is only real
+sub3_out   <= sub_32bit_WithUnderflowControl(mult1_out,mult2_out) ;
 mult3_out  <= shift_left(signed(re_wire)*(UI_reg),1); -- shift compensates constants normalization error
-mult4_out  <= shift_left(x"0000"*UR_reg,1); -- the imaginary part is considered zero. This time domain signal is only real
-adder7_out <= (mult3_out + X"00008000") + (mult4_out + X"00008000");
+mult4_out  <= shift_left(signed(im_wire)*UR_reg,1); -- the imaginary part is considered zero. This time domain signal is only real
+adder7_out <= add_32bit_WithOverflowControl(mult3_out,mult4_out);
 
-sub4_out   <= signed(re_wire)-TR_reg;
-sub5_out   <= signed(im_wire)-TI_reg;
-adder8_out <= signed(re_wire)+TR_reg;
-adder9_out <= signed(im_wire)+TI_reg;
+sub4_out   <= sub_16bit_WithUnderflowControl(signed(re_wire),TR_reg);
+sub5_out   <= sub_16bit_WithUnderflowControl(signed(im_wire),TI_reg);
+adder8_out <= add_16bit_WithOverflowControl(signed(re_wire),TR_reg);
+adder9_out <= add_16bit_WithOverflowControl(signed(im_wire),TI_reg);
 
 
 mult5_out   <= shift_left(TR_reg*SR_reg,1); --shift compensates constants normalization error
 mult6_out   <= shift_left(UI_reg*SI_reg,1);
 mult7_out   <= shift_left(TR_reg*SI_reg,1);
 mult8_out   <= shift_left(UI_reg*SR_reg,1);
-sub6_out    <= (mult5_out + X"00008000") - (mult6_out + X"00008000");
-adder10_out <= (mult7_out + X"00008000") + (mult8_out + X"00008000");
+sub6_out    <= sub_32bit_WithUnderflowControl(mult5_out,mult6_out);
+adder10_out <= add_32bit_WithOverflowControl(mult7_out,mult8_out);
 
 -- Data path status Logic
 counter_2_full <= '1' when counter2_reg > M else '0';
