@@ -22,12 +22,12 @@ use ieee.numeric_std.all;
 
 entity demux is
   port
-  (
-    a : out std_logic;
-    b : out std_logic;
-    sel  : in std_logic;
-    d : in std_logic
-  );
+    (
+      a   : out std_logic;
+      b   : out std_logic;
+      sel : in  std_logic;
+      d   : in  std_logic
+      );
 end entity;
 
 architecture arch of demux is

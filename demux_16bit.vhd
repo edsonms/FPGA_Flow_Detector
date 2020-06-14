@@ -22,12 +22,12 @@ use ieee.numeric_std.all;
 
 entity demux_16bit is
   port
-  (
-    a : out std_logic_vector(15 downto 0);
-    b : out std_logic_vector(15 downto 0);
-    sel : in std_logic;
-    d : in std_logic_vector(15 downto 0)
-  );
+    (
+      a   : out std_logic_vector(15 downto 0);
+      b   : out std_logic_vector(15 downto 0);
+      sel : in  std_logic;
+      d   : in  std_logic_vector(15 downto 0)
+      );
 end entity;
 
 architecture arch of demux_16bit is
@@ -38,28 +38,28 @@ architecture arch of demux_16bit is
       b   : out std_logic;
       sel : in  std_logic;
       d   : in  std_logic
-    );
+      );
   end component;
 
-signal a_wire,b_wire,d_wire : std_logic_vector (15 downto 0);
+  signal a_wire, b_wire, d_wire : std_logic_vector (15 downto 0);
 
 
 begin
 
-  gen_mux:
+  gen_mux :
   for I in 0 to 15 generate
     demux_i : demux
-    port map (
-      a   => a_wire(i),
-      b   => b_wire(i),
-      sel => sel,
-      d   => d_wire(i)
-    );
+      port map (
+        a   => a_wire(i),
+        b   => b_wire(i),
+        sel => sel,
+        d   => d_wire(i)
+        );
 
   end generate;
 
-a <= a_wire;
-b <= b_wire;
-d_wire <= d;
+  a      <= a_wire;
+  b      <= b_wire;
+  d_wire <= d;
 
 end architecture;
