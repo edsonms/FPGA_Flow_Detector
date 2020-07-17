@@ -10,7 +10,7 @@
 int main()
 {
 
-        float re[8]={1, 2, 3, 4, 5, 6, 7, 8};
+        float re[8]={3, 19, 147, 83, 35, 19, 99, -13};
         float im[8]={0,0,0,0,0,0,0,0};
 
         int j = ND2;
@@ -45,8 +45,8 @@ jump3:
 
         for (int i = 0; i < N; i += 1)
         {
-                printf( "%d", re[i]);
-                printf( ",%d\n", im[i]);
+                printf( "%f", re[i]);
+                printf( ",%f\n", im[i]);
         }
         printf("\n");
 

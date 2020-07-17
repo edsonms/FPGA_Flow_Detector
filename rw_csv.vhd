@@ -6,20 +6,36 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 --
 use std.textio.all;
-use ieee.std_logic_textio.all;
+--use ieee.std_logic_textio.all;
 
-package wr_csv is
+package rw_csv is
 
-  constant row_max                                : integer := 2048;  -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
-  constant col_max                                : integer := 1;  -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
+  constant row_max                                 : integer := 2048;  -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
+  constant col_max                                 : integer := 1;  -- This number has to be adapted according to the file to be read, because the function needs to define the return type in the function delcaration
   type array_2D is array (row_max-1 downto 0, col_max-1 downto 0)of integer;
-  impure function read_integer(file file_variable : text; n_cols : integer) return array_2D;
+  impure function complex_write(file file_variable : text; n_line : integer; value : array_2D; value2 : array_2D)return boolean;
+  impure function read_integer(file file_variable  : text; n_cols : integer) return array_2D;
   --function read_std_logic_vector(file_address: text, n_rows: integer,n_cols:integer) return array of std_logic_vector;
-  --function write(file_address: text);
 
 end package;
 
-package body wr_csv is
+package body rw_csv is
+
+  impure function complex_write(file file_variable : text; n_line : integer; value : array_2D; value2 : array_2D) return boolean is
+    variable current_line : line;
+    file dummy_file       : text open write_mode is "dummy_file.txt";
+    variable write_ack    : boolean := true;
+    variable i            : integer := 0;
+
+  begin
+    for i in 0 to n_line-1 loop
+        write(current_line, integer'image(value(i,0)));
+        write(current_line, string'(","));
+        write(current_line, integer'image(value2(i,0)));
+        writeline(file_variable, current_line);
+    end loop;
+    return write_ack;
+  end function complex_write;
 
 
   -- read_integer
@@ -56,6 +72,5 @@ package body wr_csv is
     return read_out;
 
   end function read_integer;
-
 
 end package body;

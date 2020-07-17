@@ -22,10 +22,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package frame_packg is
-  constant N   : integer := 8;          -- FFT N.o of points
-  constant NM1 : integer := 7;          -- N-1
-  constant ND2 : integer := 4;          -- N/2
-  constant M   : integer := 3;          -- M = log(N)/log(2) // for N=256, M=8
+  constant N   : integer := 256;          -- FFT N.o of points
+  constant NM1 : integer := 255;          -- N-1
+  constant ND2 : integer := 128;          -- N/2
+  constant M   : integer := 8;          -- M = log(N)/log(2) // for N=256, M=8
 --type frame_typ is array (NM1 downto 0) of signed(15 downto 0);
 end package frame_packg;
 
@@ -71,7 +71,7 @@ architecture behaviour of fft is
   signal counter0_reg, counter1_reg, counter3_reg, counter4_reg, counter5_reg                                                                                                                                                                          : integer;
   signal counter2_reg                                                                                                                                                                                                                                  : integer := 1;  -- !!!! LEMBRAR DE TIRAR ESSA INICIALIZACAO DE VALOR !!!!!!!
   signal counter0_next, counter1_next, counter_2_next, counter_3_next, counter_4_next, counter_5_next                                                                                                                                                  : integer;
-  signal left_shift_out, right_shift_out, LE_reg, LE_next, LE_D2_reg, LE_D2_next                                                                                                                                                                       : signed(7 downto 0);
+  signal left_shift_out, right_shift_out, LE_reg, LE_next, LE_D2_reg, LE_D2_next                                                                                                                                                                       : unsigned(7 downto 0);
   signal sin_out, cos_out, inverter_out, adder5_out                                                                                                                                                                                                    : signed(15 downto 0);
   signal butterfly_address_wire, bitrev_address_wire, bitrev_address_reg, read_address_reg, writing_address_reg, writing_address_next, read_address_next, Address3_reg, Address3_next, Address4_wire, Address, Address2                                : std_logic_vector(7 downto 0);
   signal dummy_out1, dummy_out2                                                                                                                                                                                                                        : std_logic_vector(15 downto 0);
@@ -377,7 +377,8 @@ begin
         counter0_next        <= adder0_out;
         counter1_next        <= adder1_out;
         writing_address_next <= std_logic_vector(to_signed(counter0_reg, 8));
-        read_address_next    <= std_logic_vector(shift_right(bitrev, 5));  --!!!! LEMBRAR DE TIRAR ESSE SHIFT !!!!!!!
+        --read_address_next    <= std_logic_vector(shift_right(bitrev, 5));  --!!!! LEMBRAR DE TIRAR ESSE SHIFT !!!!!!!
+        read_address_next    <= std_logic_vector(bitrev);
         Address3_next        <= std_logic_vector(to_signed(counter1_reg, 8));
 
       when finished =>
@@ -590,47 +591,47 @@ begin
         counter_5_next <= adder6_out;  -- the "ip" variable from the second for in the BASIC FFT example
 
       when loop3 =>                     -- le de uma posiçao de memoria 3
-        Address4_wire          <= std_logic_vector(to_signed(counter5_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_2 =>                   --
-        Address4_wire          <= std_logic_vector(to_signed(counter5_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_3 =>
-        Address4_wire          <= std_logic_vector(to_signed(counter5_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_4 =>                   -- le de outra posicao de memoria 3
         TR_next                <= round_to_16bit(sub3_out);
         TI_next                <= round_to_16bit(adder7_out);
-        Address4_wire          <= std_logic_vector(to_signed(counter4_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter4_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter4_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter4_reg, 8));
 
       when loop3_5 =>
-        Address4_wire          <= std_logic_vector(to_signed(counter4_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter4_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter4_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter4_reg, 8));
 
       when loop3_6 =>
-        Address4_wire          <= std_logic_vector(to_signed(counter4_reg, 8));
-        butterfly_address_wire <= std_logic_vector(to_signed(counter4_reg, 8));
+        Address4_wire          <= std_logic_vector(to_unsigned(counter4_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter4_reg, 8));
 
       when loop3_7 =>                   -- escrevo em uma posicao de memoria 4
         re_next                <= std_logic_vector(sub4_out);
         im_next                <= std_logic_vector(sub5_out);
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_8 =>                   -- escrevo em uma posicao de memoria 4
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_9 =>                   -- escrevo em uma posicao de memoria 4
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_10 =>                  -- escrevo em uma posicao de memoria 4
-        butterfly_address_wire <= std_logic_vector(to_signed(counter5_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter5_reg, 8));
 
       when loop3_11 =>  -- escrevo em outra posicao de memoria 4
-        butterfly_address_wire <= std_logic_vector(to_signed(counter4_reg, 8));
+        butterfly_address_wire <= std_logic_vector(to_unsigned(counter4_reg, 8));
         counter_4_next         <= adder4_out;
         re_next                <= std_logic_vector(adder8_out);
         im_next                <= std_logic_vector(adder9_out);
@@ -712,7 +713,7 @@ begin
   adder10_out <= add_32bit_WithOverflowControl(mult7_out, mult8_out);
 
 -- Data path status Logic
-  counter_2_full <= '1' when counter2_reg > M                                                                                                                                                                                    else '0';
+  counter_2_full <= '1' when counter2_reg >= M                                                                                                                                                                                    else '0';
   counter_3_full <= '1' when counter3_reg > to_integer(LE_D2_reg)                                                                                                                                                                else '0';
   counter_4_full <= '1' when counter4_reg > NM1                                                                                                                                                                                  else '0';
   sel3           <= '0' when state2_reg = idle                                                                                                                                                                                   else '1';

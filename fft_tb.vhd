@@ -5,10 +5,26 @@ use ieee.std_logic_1164.all;
 --! Arithmetic functions.
 use ieee.numeric_std.all;
 --
---use work.frame_packg.all;
+package frame_packg is
+  constant N   : integer := 256;          -- FFT N.o of points
+  constant NM1 : integer := 255;          -- N-1
+  constant ND2 : integer := 128;          -- N/2
+  constant M   : integer := 8;          -- M = log(N)/log(2) // for N=256, M=8
+--type frame_typ is array (NM1 downto 0) of signed(15 downto 0);
+end package frame_packg;
+
+--! Standard library.
+library ieee;
+--! Logic elements.
+use ieee.std_logic_1164.all;
+--! Arithmetic functions.
+use ieee.numeric_std.all;
 
 library std;
 use std.textio.all;
+
+use work.rw_csv.all;
+use work.frame_packg.all;
 --
 --library src_lib;
 --use src_lib.types_declaration_fft_pkg.all;
@@ -56,10 +72,10 @@ architecture bench of fft_tb is
 
 
   -- Signal ports
-  signal clock      : std_logic             := '0';
-  signal acquire    : std_logic             := '0';
-  signal start      : std_logic             := '0';
-  signal sample     : unsigned(15 downto 0) := x"0000";
+  signal clock      : std_logic                     := '0';
+  signal acquire    : std_logic                     := '0';
+  signal start      : std_logic                     := '0';
+  signal sample     : std_logic_vector(15 downto 0) := x"0000";
   signal bitrev_rdy : std_logic;
   signal fft_rdy    : std_logic;
   signal out_addr   : std_logic_vector(7 downto 0);
@@ -74,7 +90,7 @@ begin
       clock      => clock,
       acquire    => acquire,
       start      => start,
-      sample     => std_logic_vector(sample),
+      sample     => sample,
       bitrev_rdy => bitrev_rdy,
       fft_rdy    => fft_rdy,
       out_addr   => out_addr,
@@ -85,59 +101,64 @@ begin
 
   process(clock, acquire)
   begin
-    clock   <= not(clock)   after 100 ns;  --5MHz
-    acquire <= not(acquire) after 122.07 us;
+    clock   <= not(clock)   after 33.3333 ns; -- 15MHz
+    acquire <= not(acquire) after 500 us;  -- 1khz
   end process;
 
 
+  process
+    file my_csv_file : text;
+    variable x       : work.rw_csv.array_2D;
+    variable counter : integer := 0;
+  begin
+    file_open(my_csv_file, "SAMPLE_Corrigida.CSV", read_mode);
+    x := read_integer(my_csv_file, 1);
+    wait until acquire = '1' and acquire'event;
+    while not(counter > 2048) loop
+      sample  <= std_logic_vector(to_signed(x(counter, 0), 16));
+      counter := counter+1;
+      wait for 1 ms;
+    end loop;
+    file_close(my_csv_file);
+  end process;
+
   main : process
-    file outfile        : text open write_mode is "fft_output.txt";
+    file outfile        : text;
     variable out_line   : line;
     variable aux1, aux2 : integer := 1;
+    variable ack        : boolean;
+    variable counter2   : integer:=0;
+    variable add_last_value : std_logic_vector(7 downto 0):= x"FF";
+    variable re_last_value : std_logic_vector(15 downto 0) := (others => 'X');
+    variable im_last_value : std_logic_vector(15 downto 0) := (others => 'X');
+    variable y_real : work.rw_csv.array_2D;
+    variable y_imag : work.rw_csv.array_2D;
 
   begin
     start <= '1' after 500 ns;
-    wait until rising_edge (clock);
-    if (sample = x"0000")then
-      sample <= x"0148" after 121 us;
-    elsif (sample < x"0A3D")then
-      sample <= (sample + x"0148") after 244.14 us;
-    else
-      sample <= x"0148" after 244.14 us;
-    end if;
 
-    if (out_we = '1') then
-      if(aux1 > 160)then
-        if(aux2 > 3)then
-          STD.textio.write(out_line, string'("Address:"));
-          STD.textio.write(out_line, integer'image(to_integer(unsigned(out_addr))));
-          STD.textio.write(out_line, string'(";"));
-          STD.textio.write(out_line, integer'image(to_integer(signed(re_x))));
-          STD.textio.write(out_line, string'("+"));
-          STD.textio.write(out_line, integer'image(to_integer(signed(im_x))));
-          STD.textio.write(out_line, string'("i"));
-          writeline(outfile, out_line);
-          aux2 := 1;
-        else
-          aux2 := aux2+1;
-        end if;
+      wait until rising_edge (clock);
+      if(fft_rdy='1')then
+        aux1:=0;
       end if;
-      aux1 := aux1+1;
-    end if;
 
-    --test_runner_setup(runner, runner_cfg);
-    --while test_suite loop
-    --if run("test_alive") then
-    --info("Hello world test_alive");
-    --wait for 100 ns;
-    --test_runner_cleanup(runner);
+      if (out_we = '1' and aux1=0) then
+          if((add_last_value /= out_addr) or (re_last_value /= re_x) or (im_last_value /= im_x))then
+            y_real(to_integer(unsigned(out_addr)),0):=to_integer(signed(re_x));
+            y_imag(to_integer(unsigned(out_addr)),0):=to_integer(signed(im_x));
+            counter2:=counter2+1;
+            add_last_value := out_addr;
+            re_last_value := re_x;
+            im_last_value := im_x;
+          end if;
+      end if;
 
-  --elsif run("test_0") then
-  --info("Hello world test_0");
-  --wait for 100 ns;
-  --test_runner_cleanup(runner);
-  --end if;
-  --  end loop;
+      if(fft_rdy='1' and aux1=0)then
+        file_open(outfile, "fft_output.csv", write_mode);
+        ack := complex_write(outfile,work.frame_packg.N, y_real,y_imag);
+        file_close(outfile);
+      end if;
+
   end process;
 
 end;

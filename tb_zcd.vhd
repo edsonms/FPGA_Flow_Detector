@@ -6,7 +6,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 --
 use std.textio.all;
-use ieee.std_logic_textio.all;
+--use ieee.std_logic_textio.all;
 use work.frame_packg.all;
 use work.wr_csv.all;
 
@@ -26,7 +26,7 @@ architecture bench of zcd_tb is
   signal start      : std_logic;
   signal frame_in   : frame_typ;
   signal rdy        : std_logic;
-  signal zcd_result : unsigned (8 downto 0);
+  signal zcd_result : std_logic_vector (8 downto 0);
 
   component zcd is
     port (
@@ -34,7 +34,7 @@ architecture bench of zcd_tb is
       start      : in  std_logic;
       frame_in   : in  frame_typ;
       rdy        : out std_logic;
-      zcd_result : out unsigned (8 downto 0)
+      zcd_result : out std_logic_vector (8 downto 0)
       );
   end component;
 
@@ -67,7 +67,7 @@ begin
     while counter < 2048 loop
       for i in 0 to 255 loop
         x_i         := x(counter, 0);
-        frame_in(i) <= to_signed(x_i, 16);
+        frame_in(i) <= std_logic_vector(to_signed(x_i, 16));
         counter     := counter+1;
       end loop;
       wait for 125 us;

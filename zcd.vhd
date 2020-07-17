@@ -23,7 +23,7 @@ use ieee.numeric_std.all;
 package frame_packg is
   constant frame_size           : integer := 256;
   constant frame_size_minus_one : integer := 255;
-  type frame_typ is array (frame_size_minus_one downto 0) of signed(15 downto 0);
+  type frame_typ is array (frame_size_minus_one downto 0) of std_logic_vector(15 downto 0);
 end frame_packg;
 use work.frame_packg.all;
 
@@ -38,7 +38,7 @@ entity zcd is
       start      : in  std_logic;
       frame_in   : in  frame_typ;
       rdy        : out std_logic;
-      zcd_result : out unsigned (8 downto 0)
+      zcd_result : out std_logic_vector (8 downto 0)
       );
 end entity;
 
@@ -50,8 +50,7 @@ architecture behaviour of zcd is
 
 begin
 
-  frame_buffer <= frame_in;
-  zcd_result   <= zcd_result_buff;
+  zcd_result <= std_logic_vector(zcd_result_buff);
 
 
   calculating : process(clk_in, start)
@@ -62,7 +61,8 @@ begin
       counter         <= 1;
     elsif (start = '1') then
       if rising_edge(clk_in) then
-        if(counter < frame_size)then
+        frame_buffer <= frame_in;
+        if(counter   <= frame_size)then
           if ((frame_buffer(counter)(15)) /= (frame_buffer(counter-1)(15)))then
             zcd_result_buff <= zcd_result_buff + x"01";
           else
