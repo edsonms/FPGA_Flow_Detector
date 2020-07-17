@@ -123,7 +123,6 @@ constant    SATURATED   : unsigned(ACCUM_BITS-1 downto 0) := (others => '1'); --
 signal      delta       : std_logic;        -- captured comparitor output
 signal      sigma       : unsigned(ACCUM_BITS-1 downto 0); -- running accumulator value
 signal      accum       : unsigned(ADC_WIDTH-1 downto 0);  -- latched accumulator value
-signal      accum_wire  : std_logic_vector(ADC_WIDTH-1 downto 0);  -- latched accumulator value
 signal      counter     : unsigned(ACCUM_BITS-1 downto 0); -- decimation counter for accumulator
 signal      rollover    : std_logic;        -- decimation counter terminal count
 signal      accum_rdy   : std_logic;        -- latched accumulator value 'ready'
@@ -169,7 +168,7 @@ begin
                 sigma(0) <= delta;
         else
             if (sigma /= SATURATED) then    -- if not saturated
-                sigma <= sigma + delta;     -- accumulate
+                sigma <= sigma + (x"000" & delta);     -- accumulate
             end if;
         end if;
         accum_rdy <= rollover;     -- latch 'rdy' (to align with accum)
@@ -196,11 +195,10 @@ BA_INST: box_ave
         clk             => clk,
         rstn            => rstn,
         sample          => accum_rdy,
-        raw_data_in     => accum_wire,
+        raw_data_in     => std_logic_vector(accum),
         ave_data_out    => digital_out,
         data_out_valid  => sample_rdy
     );
-accum <= unsigned(accum_wire);
 
 --************************************************************************
 --
@@ -214,7 +212,7 @@ begin
 		counter    <= (others => '0');
 		rollover   <= '0';
     elsif (clk'event and clk='1') then
-		counter <= counter + '1';     -- running count
+		counter <= counter + (x"000" & '1');     -- running count
         if (counter = SATURATED) then
     		rollover <= '1';         -- assert 'rollover' when counter is all 1's
         else

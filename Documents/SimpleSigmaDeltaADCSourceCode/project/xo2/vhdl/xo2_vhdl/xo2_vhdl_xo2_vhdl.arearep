@@ -1,0 +1,41 @@
+----------------------------------------------------------------------
+Report for cell ADC_top.TECH
+Register bits:  86 of 1595 (5.392%)
+I/O cells:      17
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        22          100.0
+                            FD1P3AX        43          100.0
+                            FD1P3IX        12          100.0
+                            FD1S3AX        31          100.0
+                                GSR         1          100.0
+                                 IB         3          100.0
+                               LUT4        19          100.0
+                                 OB        14          100.0
+SUB MODULES
+                      box_ave(12,3)         1
+            sigmadelta_adc(12,13,3)         1
+                              TOTAL       147
+----------------------------------------------------------------------
+Report for cell sigmadelta_adc(12,13,3).v1
+Instance Path : SSD_ADC
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        22          100.0
+                            FD1P3AX        43          100.0
+                            FD1P3IX        12          100.0
+                            FD1S3AX        31          100.0
+                               LUT4        19          100.0
+SUB MODULES
+                      box_ave(12,3)         1
+                              TOTAL       128
+----------------------------------------------------------------------
+Report for cell box_ave(12,3).v1
+Instance Path : SSD_ADC.BA_INST
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         8           36.4
+                            FD1P3AX        30           69.8
+                            FD1S3AX        15           48.4
+                               LUT4         7           36.8
+                              TOTAL        60

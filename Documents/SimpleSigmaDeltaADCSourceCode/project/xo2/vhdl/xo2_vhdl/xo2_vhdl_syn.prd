@@ -1,0 +1,13 @@
+#--  Synopsys, Inc.
+#--  Version N-2018.03L-SP1-1
+#--  Project file Z:\FPGA_Flow_Detector\Documents\SimpleSigmaDeltaADCSourceCode\project\xo2\vhdl\xo2_vhdl\xo2_vhdl_syn.prd
+#--  Written on Thu Jul 16 22:05:03 2020
+
+#
+### Watch Implementation type ###
+#
+watch_impl -all
+#
+### Watch Implementation properties ###
+#
+watch_prop -clear

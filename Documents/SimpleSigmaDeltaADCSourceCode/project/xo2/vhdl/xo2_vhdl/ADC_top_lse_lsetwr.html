@@ -1,0 +1,244 @@
+<HTML>
+<HEAD><TITLE>Lattice Synthesis Timing Report</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Map_Twr"></A><B><U><big>Lattice Synthesis Timing Report</big></U></B>
+--------------------------------------------------------------------------------
+Lattice Synthesis Timing Report, Version  
+Thu Jul 16 21:57:02 2020
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2019 Lattice Semiconductor Corporation,  All rights reserved.
+
+<A name="mtw1_ri"></A><B><U><big>Report Information</big></U></B>
+------------------
+Design:     ADC_top
+Constraint file:  
+Report level:    verbose report, limited to 3 items per constraint
+--------------------------------------------------------------------------------
+
+
+
+================================================================================
+Constraint: create_clock -period 5.000000 -name clk0 [get_nets clk_in_c]
+            759 items scored, 275 timing errors detected.
+--------------------------------------------------------------------------------
+
+
+Error:  The following path violates requirements by 1.392ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1P3IX    CK             \SSD_ADC/sigma_i11  (from clk_in_c +)
+   Destination:    FD1P3AX    SP             \SSD_ADC/sigma_i0  (to clk_in_c +)
+
+   Delay:                   6.156ns  (32.5% logic, 67.5% route), 5 logic levels.
+
+ Constraint Details:
+
+      6.156ns data_path \SSD_ADC/sigma_i11 to \SSD_ADC/sigma_i0 violates
+      5.000ns delay constraint less
+      0.236ns LCE_S requirement (totaling 4.764ns) by 1.392ns
+
+ Path Details: \SSD_ADC/sigma_i11 to \SSD_ADC/sigma_i0
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.367             CK to Q              \SSD_ADC/sigma_i11 (from clk_in_c)
+Route         3   e 0.919                                  \SSD_ADC/sigma[11]
+LUT4        ---     0.408              B to Z              \SSD_ADC/i9_4_lut_adj_3
+Route         1   e 0.660                                  \SSD_ADC/n22_adj_121
+LUT4        ---     0.408              B to Z              \SSD_ADC/i11_4_lut_adj_1
+Route         1   e 0.660                                  \SSD_ADC/n24_adj_119
+LUT4        ---     0.408              B to Z              \SSD_ADC/i196_4_lut
+Route        13   e 1.258                                  \SSD_ADC/clk_in_c_enable_13
+LUT4        ---     0.408              A to Z              \SSD_ADC/i1_2_lut
+Route         1   e 0.660                                  \SSD_ADC/clk_in_c_enable_12
+                  --------
+                    6.156  (32.5% logic, 67.5% route), 5 logic levels.
+
+
+Error:  The following path violates requirements by 1.392ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1P3IX    CK             \SSD_ADC/sigma_i9  (from clk_in_c +)
+   Destination:    FD1P3AX    SP             \SSD_ADC/sigma_i0  (to clk_in_c +)
+
+   Delay:                   6.156ns  (32.5% logic, 67.5% route), 5 logic levels.
+
+ Constraint Details:
+
+      6.156ns data_path \SSD_ADC/sigma_i9 to \SSD_ADC/sigma_i0 violates
+      5.000ns delay constraint less
+      0.236ns LCE_S requirement (totaling 4.764ns) by 1.392ns
+
+ Path Details: \SSD_ADC/sigma_i9 to \SSD_ADC/sigma_i0
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.367             CK to Q              \SSD_ADC/sigma_i9 (from clk_in_c)
+Route         3   e 0.919                                  \SSD_ADC/sigma[9]
+LUT4        ---     0.408              B to Z              \SSD_ADC/i3_2_lut_adj_2
+Route         1   e 0.660                                  \SSD_ADC/n16_adj_122
+LUT4        ---     0.408              C to Z              \SSD_ADC/i11_4_lut_adj_1
+Route         1   e 0.660                                  \SSD_ADC/n24_adj_119
+LUT4        ---     0.408              B to Z              \SSD_ADC/i196_4_lut
+Route        13   e 1.258                                  \SSD_ADC/clk_in_c_enable_13
+LUT4        ---     0.408              A to Z              \SSD_ADC/i1_2_lut
+Route         1   e 0.660                                  \SSD_ADC/clk_in_c_enable_12
+                  --------
+                    6.156  (32.5% logic, 67.5% route), 5 logic levels.
+
+
+Error:  The following path violates requirements by 1.392ns
+
+ Logical Details:  Cell type  Pin type       Cell name  (clock net +/-)
+
+   Source:         FD1P3IX    CK             \SSD_ADC/sigma_i4  (from clk_in_c +)
+   Destination:    FD1P3AX    SP             \SSD_ADC/sigma_i0  (to clk_in_c +)
+
+   Delay:                   6.156ns  (32.5% logic, 67.5% route), 5 logic levels.
+
+ Constraint Details:
+
+      6.156ns data_path \SSD_ADC/sigma_i4 to \SSD_ADC/sigma_i0 violates
+      5.000ns delay constraint less
+      0.236ns LCE_S requirement (totaling 4.764ns) by 1.392ns
+
+ Path Details: \SSD_ADC/sigma_i4 to \SSD_ADC/sigma_i0
+
+   Name    Fanout   Delay (ns)          Pins               Resource(Cell.Net)
+L_CO        ---     0.367             CK to Q              \SSD_ADC/sigma_i4 (from clk_in_c)
+Route         3   e 0.919                                  \SSD_ADC/sigma[4]
+LUT4        ---     0.408              A to Z              \SSD_ADC/i3_2_lut_adj_2
+Route         1   e 0.660                                  \SSD_ADC/n16_adj_122
+LUT4        ---     0.408              C to Z              \SSD_ADC/i11_4_lut_adj_1
+Route         1   e 0.660                                  \SSD_ADC/n24_adj_119
+LUT4        ---     0.408              B to Z              \SSD_ADC/i196_4_lut
+Route        13   e 1.258                                  \SSD_ADC/clk_in_c_enable_13
+LUT4        ---     0.408              A to Z              \SSD_ADC/i1_2_lut
+Route         1   e 0.660                                  \SSD_ADC/clk_in_c_enable_12
+                  --------
+                    6.156  (32.5% logic, 67.5% route), 5 logic levels.
+
+Warning: 6.392 ns is the maximum delay for this constraint.
+
+
+<A name="mtw1_rs"></A><B><U><big>Timing Report Summary</big></U></B>
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk0 [get_nets clk_in_c]                |     5.000 ns|     6.392 ns|     5 *
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+1 constraints not met.
+
+--------------------------------------------------------------------------------
+Critical Nets                           |   Loads|  Errors| % of total
+--------------------------------------------------------------------------------
+\SSD_ADC/BA_INST/n4                     |      12|     192|     69.82%
+                                        |        |        |
+\SSD_ADC/BA_INST/n258                   |       1|     112|     40.73%
+                                        |        |        |
+\SSD_ADC/BA_INST/n259                   |       1|     108|     39.27%
+                                        |        |        |
+\SSD_ADC/BA_INST/n257                   |       1|     100|     36.36%
+                                        |        |        |
+\SSD_ADC/BA_INST/count[0]               |       8|      96|     34.91%
+                                        |        |        |
+\SSD_ADC/BA_INST/count[1]               |       7|      96|     34.91%
+                                        |        |        |
+\SSD_ADC/BA_INST/n260                   |       1|      88|     32.00%
+                                        |        |        |
+\SSD_ADC/clk_in_c_enable_13             |      13|      83|     30.18%
+                                        |        |        |
+\SSD_ADC/n24_adj_119                    |       1|      80|     29.09%
+                                        |        |        |
+\SSD_ADC/BA_INST/n256                   |       1|      72|     26.18%
+                                        |        |        |
+\SSD_ADC/n22_adj_121                    |       1|      52|     18.91%
+                                        |        |        |
+\SSD_ADC/BA_INST/n261                   |       1|      48|     17.45%
+                                        |        |        |
+\SSD_ADC/BA_INST/n255                   |       1|      28|     10.18%
+                                        |        |        |
+--------------------------------------------------------------------------------
+
+
+<A name="mtw1_ts"></A><B><U><big>Timing summary:</big></U></B>
+---------------
+
+Timing errors: 275  Score: 92700
+
+Constraints cover  1187 paths, 152 nets, and 399 connections (96.1% coverage)
+
+
+Peak memory: 95145984 bytes, TRCE: 2469888 bytes, DLYMAN: 167936 bytes
+CPU_TIME_REPORT: 0 secs 
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

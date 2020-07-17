@@ -1,0 +1,34 @@
+---------------------------------------------------
+Report for cell ADC_top
+   Instance path: ADC_top
+                     Cell usage:
+                                  cell	      count    Res Usage(%)
+                                  SLIC	      46.00        100.0
+                                  LUT4	      19.00        100.0
+                                 IOBUF	         17        100.0
+                                PFUREG	         86        100.0
+                                RIPPLE	         22        100.0
+SUB MODULES
+                                  cell	      count    SLC Usage(%)
+               sigmadelta_adc(12,13,3)	          1        100.0
+---------------------------------------------------
+Report for cell sigmadelta_adc(12,13,3)
+   Instance path: ADC_top/SSD_ADC
+                     Cell usage:
+                                  cell	      count    Res Usage(%)
+                                  SLIC	      46.00        100.0
+                                  LUT4	      19.00        100.0
+                                PFUREG	         86        100.0
+                                RIPPLE	         22        100.0
+SUB MODULES
+                                  cell	      count    SLC Usage(%)
+                         box_ave(12,3)	          1        45.3
+---------------------------------------------------
+Report for cell box_ave(12,3)
+   Instance path: ADC_top/SSD_ADC/BA_INST
+                     Cell usage:
+                                  cell	      count    Res Usage(%)
+                                  SLIC	      20.83        45.3
+                                  LUT4	       7.00        36.8
+                                PFUREG	         45        52.3
+                                RIPPLE	          8        36.4

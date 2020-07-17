@@ -1,0 +1,7 @@
+i clk_in
+m 0 0
+u 13 86
+p {p:clk_in}{t:SSD_ADC.clk}{p:SSD_ADC.clk}{t:SSD_ADC.accum[11:0].C}
+e ckid0_0 {t:SSD_ADC.accum[11:0].C} dffre
+c ckid0_0 {p:clk_in} Unconstrained_port Inferred clock from port
+l 0 0 0 0 0

@@ -1,0 +1,5 @@
+-rem
+-distrce
+-log "xo2_vhdl_xo2_vhdl.log"
+-o "xo2_vhdl_xo2_vhdl.csv"
+-pr "xo2_vhdl_xo2_vhdl.prf"

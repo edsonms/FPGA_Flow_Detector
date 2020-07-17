@@ -1,0 +1,56 @@
+
+Lattice Place and Route Report for Design "xo2_vhdl_xo2_vhdl_map.ncd"
+Thu Jul 16 22:05:18 2020
+
+PAR: Place And Route Diamond (64-bit) 3.11.2.446.
+Command Line: par -w -l 5 -i 6 -t 1 -c 0 -e 0 -gui -exp parUseNBR=1:parCDP=0:parCDR=0:parPathBased=OFF xo2_vhdl_xo2_vhdl_map.ncd xo2_vhdl_xo2_vhdl.dir/5_1.ncd xo2_vhdl_xo2_vhdl.prf
+Preference file: xo2_vhdl_xo2_vhdl.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file xo2_vhdl_xo2_vhdl_map.ncd.
+Design name: ADC_top
+NCD version: 3.3
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     CSBGA132
+Performance: 6
+Loading device for application par from file 'xo2c1200.nph' in environment: C:/lscc/diamond/3.11_x64/ispfpga.
+Package Status:                     Final          Version 1.42.
+Performance Hardware Data Status:   Final          Version 34.4.
+License checked out.
+
+
+Ignore Preference Error(s):  True
+Device utilization summary:
+
+   PIO (prelim)   17+4(JTAG)/108     19% used
+                  17+4(JTAG)/105     20% bonded
+
+   SLICE             46/640           7% used
+
+   GSR                1/1           100% used
+
+
+Number of Signals: 167
+Number of Connections: 345
+
+Pin Constraint Summary:
+   0 out of 17 pins locked (0% locked).
+
+The following 1 signal is selected to use the primary clock routing resources:
+    clk_in_c (driver: clk_in, clk load #: 46)
+
+
+The following 2 signals are selected to use the secondary clock routing resources:
+    SSD_ADC/rollover (driver: SSD_ADC/SLICE_38, clk load #: 0, sr load #: 7, ce load #: 6)
+    SSD_ADC/BA_INST/accumulate (driver: SSD_ADC/SLICE_45, clk load #: 0, sr load #: 0, ce load #: 10)
+
+Signal rstn_c is selected as Global Set/Reset.
+.
+Starting Placer Phase 0.
+............
+Finished Placer Phase 0.  REAL time: 3 secs 
+
+Starting Placer Phase 1.
+......

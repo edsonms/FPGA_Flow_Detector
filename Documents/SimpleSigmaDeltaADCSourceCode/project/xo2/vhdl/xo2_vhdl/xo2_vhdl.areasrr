@@ -1,0 +1,55 @@
+----------------------------------------------------------------------
+Report for cell ADC_top.translated
+
+Register bits: 87 of 1280 (7%)
+PIC Latch:       0
+I/O cells:       17
+                                          Cell usage:
+                               cell       count    Res Usage(%)
+                              CCU2D       22       100.0
+                            FD1P3DX       40       100.0
+                            FD1S3DX       33       100.0
+                                GSR        1       100.0
+                                 IB        3       100.0
+                           IFS1P3DX        1       100.0
+                                INV        2       100.0
+                                 OB       14       100.0
+                           OFS1P3DX       13       100.0
+                           ORCALUT4       32       100.0
+                                PUR        1       100.0
+                                VHI        3       100.0
+                                VLO        3       100.0
+SUB MODULES 
+                            box_ave        1       100.0
+                     sigmadelta_adc        1       100.0
+                            
+                         TOTAL           170           
+----------------------------------------------------------------------
+Report for cell sigmadelta_adc.netlist
+     Instance path:  SSD_ADC
+                                          Cell usage:
+                               cell       count    Res Usage(%)
+                              CCU2D       22       100.0
+                            FD1P3DX       40       100.0
+                            FD1S3DX       33       100.0
+                                INV        1        50.0
+                           ORCALUT4       32       100.0
+                                VHI        2        66.7
+                                VLO        2        66.7
+SUB MODULES 
+                            box_ave        1       100.0
+                            
+                         TOTAL           133           
+----------------------------------------------------------------------
+Report for cell box_ave.netlist
+     Instance path:  SSD_ADC.BA_INST
+                                          Cell usage:
+                               cell       count    Res Usage(%)
+                              CCU2D        8        36.4
+                            FD1P3DX       15        37.5
+                            FD1S3DX       17        51.5
+                           ORCALUT4       21        65.6
+                                VHI        1        33.3
+                                VLO        1        33.3
+                            
+                         TOTAL            63           

@@ -153,7 +153,7 @@ begin
 		count <= (others => '0');
     elsif (clk'event and clk='1') then
 	    if (accumulate = '1') then
-            count <= count + '1';         -- incr. count per each sample
+            count <= count + "001";         -- incr. count per each sample
         end if;
 	end if;
 end process;

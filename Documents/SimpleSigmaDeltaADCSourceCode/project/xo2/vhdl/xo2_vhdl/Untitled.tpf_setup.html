@@ -1,0 +1,575 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<STYLE type=text/css>
+<!--
+.blink {text-decoration:blink}
+.ms  {font-size: 9pt; font-family: monospace; font-weight: normal}
+.msb {font-size: 9pt; font-family: monospace; font-weight: bold  }
+-->
+</STYLE>
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY><B>
+</B>
+<BR><PRE><A name="Report Header"></A>
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond (64-bit) 3.11.2.446
+Thu Jul 16 22:00:14 2020
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2019 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Design file:     ADC_top
+Device,speed:    LCMXO2-1200HC,6
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+
+
+</A><A name="FREQUENCY NET 'clk_in_c' 150.500000 MH"></A>================================================================================
+Preference: FREQUENCY NET "clk_in_c" 150.500000 MHz ;
+            10 items scored, 0 timing errors detected.
+--------------------------------------------------------------------------------
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.346ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/sigma_i9</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               5.082ns  (39.3% logic, 60.7% route), 5 logic levels.
+
+ Constraint Details:
+
+      5.082ns physical path delay SSD_ADC/SLICE_9 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.346ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C13A.CLK,R8C13A.Q1,SSD_ADC/SLICE_9:ROUTE, 0.814,R8C13A.Q1,R7C12D.D0,SSD_ADC/sigma_9:CTOF_DEL, 0.408,R7C12D.D0,R7C12D.F0,SSD_ADC/SLICE_45:ROUTE, 0.843,R7C12D.F0,R8C11D.D0,SSD_ADC/n16_adj_122:CTOF_DEL, 0.408,R8C11D.D0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_9 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13A.CLK to      R8C13A.Q1 <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/SLICE_9</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.814<A href="#@net:SSD_ADC/sigma_9:R8C13A.Q1:R7C12D.D0:0.814">      R8C13A.Q1 to R7C12D.D0     </A> <A href="#@net:SSD_ADC/sigma_9">SSD_ADC/sigma_9</A>
+CTOF_DEL    ---     0.408      R7C12D.D0 to      R7C12D.F0 <A href="#@comp:SSD_ADC/SLICE_45">SSD_ADC/SLICE_45</A>
+ROUTE         1     0.843<A href="#@net:SSD_ADC/n16_adj_122:R7C12D.F0:R8C11D.D0:0.843">      R7C12D.F0 to R8C11D.D0     </A> <A href="#@net:SSD_ADC/n16_adj_122">SSD_ADC/n16_adj_122</A>
+CTOF_DEL    ---     0.408      R8C11D.D0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    5.082   (39.3% logic, 60.7% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C13A.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_9:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C13A.CLK:1.797">       M7.PADDI to R8C13A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.552ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_13">SSD_ADC/sigma_i4</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.876ns  (41.0% logic, 59.0% route), 5 logic levels.
+
+ Constraint Details:
+
+      4.876ns physical path delay SSD_ADC/SLICE_13 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.552ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C12C.CLK,R8C12C.Q0,SSD_ADC/SLICE_13:ROUTE, 0.608,R8C12C.Q0,R7C12D.C0,SSD_ADC/sigma_4:CTOF_DEL, 0.408,R7C12D.C0,R7C12D.F0,SSD_ADC/SLICE_45:ROUTE, 0.843,R7C12D.F0,R8C11D.D0,SSD_ADC/n16_adj_122:CTOF_DEL, 0.408,R8C11D.D0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_13 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12C.CLK to      R8C12C.Q0 <A href="#@comp:SSD_ADC/SLICE_13">SSD_ADC/SLICE_13</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.608<A href="#@net:SSD_ADC/sigma_4:R8C12C.Q0:R7C12D.C0:0.608">      R8C12C.Q0 to R7C12D.C0     </A> <A href="#@net:SSD_ADC/sigma_4">SSD_ADC/sigma_4</A>
+CTOF_DEL    ---     0.408      R7C12D.C0 to      R7C12D.F0 <A href="#@comp:SSD_ADC/SLICE_45">SSD_ADC/SLICE_45</A>
+ROUTE         1     0.843<A href="#@net:SSD_ADC/n16_adj_122:R7C12D.F0:R8C11D.D0:0.843">      R7C12D.F0 to R8C11D.D0     </A> <A href="#@net:SSD_ADC/n16_adj_122">SSD_ADC/n16_adj_122</A>
+CTOF_DEL    ---     0.408      R8C11D.D0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.876   (41.0% logic, 59.0% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C12C.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_13:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C12C.CLK:1.797">       M7.PADDI to R8C12C.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.557ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_10">SSD_ADC/sigma_i1</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.871ns  (41.0% logic, 59.0% route), 5 logic levels.
+
+ Constraint Details:
+
+      4.871ns physical path delay SSD_ADC/SLICE_10 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.557ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C12A.CLK,R8C12A.Q1,SSD_ADC/SLICE_10:ROUTE, 1.095,R8C12A.Q1,R8C11D.D1,SSD_ADC/sigma_1:CTOF_DEL, 0.408,R8C11D.D1,R8C11D.F1,SSD_ADC/SLICE_50:ROUTE, 0.351,R8C11D.F1,R8C11D.C0,SSD_ADC/n22_adj_121:CTOF_DEL, 0.408,R8C11D.C0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_10 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12A.CLK to      R8C12A.Q1 <A href="#@comp:SSD_ADC/SLICE_10">SSD_ADC/SLICE_10</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     1.095<A href="#@net:SSD_ADC/sigma_1:R8C12A.Q1:R8C11D.D1:1.095">      R8C12A.Q1 to R8C11D.D1     </A> <A href="#@net:SSD_ADC/sigma_1">SSD_ADC/sigma_1</A>
+CTOF_DEL    ---     0.408      R8C11D.D1 to      R8C11D.F1 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.351<A href="#@net:SSD_ADC/n22_adj_121:R8C11D.F1:R8C11D.C0:0.351">      R8C11D.F1 to R8C11D.C0     </A> <A href="#@net:SSD_ADC/n22_adj_121">SSD_ADC/n22_adj_121</A>
+CTOF_DEL    ---     0.408      R8C11D.C0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.871   (41.0% logic, 59.0% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C12A.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_10:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C12A.CLK:1.797">       M7.PADDI to R8C12A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.717ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_12">SSD_ADC/sigma_i2</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.711ns  (42.4% logic, 57.6% route), 5 logic levels.
+
+ Constraint Details:
+
+      4.711ns physical path delay SSD_ADC/SLICE_12 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.717ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C12B.CLK,R8C12B.Q0,SSD_ADC/SLICE_12:ROUTE, 0.935,R8C12B.Q0,R8C11D.C1,SSD_ADC/sigma_2:CTOF_DEL, 0.408,R8C11D.C1,R8C11D.F1,SSD_ADC/SLICE_50:ROUTE, 0.351,R8C11D.F1,R8C11D.C0,SSD_ADC/n22_adj_121:CTOF_DEL, 0.408,R8C11D.C0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_12 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12B.CLK to      R8C12B.Q0 <A href="#@comp:SSD_ADC/SLICE_12">SSD_ADC/SLICE_12</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.935<A href="#@net:SSD_ADC/sigma_2:R8C12B.Q0:R8C11D.C1:0.935">      R8C12B.Q0 to R8C11D.C1     </A> <A href="#@net:SSD_ADC/sigma_2">SSD_ADC/sigma_2</A>
+CTOF_DEL    ---     0.408      R8C11D.C1 to      R8C11D.F1 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.351<A href="#@net:SSD_ADC/n22_adj_121:R8C11D.F1:R8C11D.C0:0.351">      R8C11D.F1 to R8C11D.C0     </A> <A href="#@net:SSD_ADC/n22_adj_121">SSD_ADC/n22_adj_121</A>
+CTOF_DEL    ---     0.408      R8C11D.C0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.711   (42.4% logic, 57.6% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C12B.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_12:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C12B.CLK:1.797">       M7.PADDI to R8C12B.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.778ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_11">SSD_ADC/sigma_i10</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.650ns  (34.2% logic, 65.8% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.650ns physical path delay SSD_ADC/SLICE_11 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.778ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C13B.CLK,R8C13B.Q0,SSD_ADC/SLICE_11:ROUTE, 0.923,R8C13B.Q0,R7C12C.C1,SSD_ADC/sigma_10:CTOF_DEL, 0.408,R7C12C.C1,R7C12C.F1,SSD_ADC/SLICE_46:ROUTE, 0.952,R7C12C.F1,R8C11C.C0,SSD_ADC/n20_adj_120:CTOF_DEL, 0.408,R8C11C.C0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_11 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13B.CLK to      R8C13B.Q0 <A href="#@comp:SSD_ADC/SLICE_11">SSD_ADC/SLICE_11</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.923<A href="#@net:SSD_ADC/sigma_10:R8C13B.Q0:R7C12C.C1:0.923">      R8C13B.Q0 to R7C12C.C1     </A> <A href="#@net:SSD_ADC/sigma_10">SSD_ADC/sigma_10</A>
+CTOF_DEL    ---     0.408      R7C12C.C1 to      R7C12C.F1 <A href="#@comp:SSD_ADC/SLICE_46">SSD_ADC/SLICE_46</A>
+ROUTE         1     0.952<A href="#@net:SSD_ADC/n20_adj_120:R7C12C.F1:R8C11C.C0:0.952">      R7C12C.F1 to R8C11C.C0     </A> <A href="#@net:SSD_ADC/n20_adj_120">SSD_ADC/n20_adj_120</A>
+CTOF_DEL    ---     0.408      R8C11C.C0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.650   (34.2% logic, 65.8% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C13B.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_11:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C13B.CLK:1.797">       M7.PADDI to R8C13B.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.822ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_12">SSD_ADC/sigma_i3</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.606ns  (34.5% logic, 65.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.606ns physical path delay SSD_ADC/SLICE_12 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.822ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C12B.CLK,R8C12B.Q1,SSD_ADC/SLICE_12:ROUTE, 0.879,R8C12B.Q1,R7C12C.B1,SSD_ADC/sigma_3:CTOF_DEL, 0.408,R7C12C.B1,R7C12C.F1,SSD_ADC/SLICE_46:ROUTE, 0.952,R7C12C.F1,R8C11C.C0,SSD_ADC/n20_adj_120:CTOF_DEL, 0.408,R8C11C.C0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_12 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C12B.CLK to      R8C12B.Q1 <A href="#@comp:SSD_ADC/SLICE_12">SSD_ADC/SLICE_12</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.879<A href="#@net:SSD_ADC/sigma_3:R8C12B.Q1:R7C12C.B1:0.879">      R8C12B.Q1 to R7C12C.B1     </A> <A href="#@net:SSD_ADC/sigma_3">SSD_ADC/sigma_3</A>
+CTOF_DEL    ---     0.408      R7C12C.B1 to      R7C12C.F1 <A href="#@comp:SSD_ADC/SLICE_46">SSD_ADC/SLICE_46</A>
+ROUTE         1     0.952<A href="#@net:SSD_ADC/n20_adj_120:R7C12C.F1:R8C11C.C0:0.952">      R7C12C.F1 to R8C11C.C0     </A> <A href="#@net:SSD_ADC/n20_adj_120">SSD_ADC/n20_adj_120</A>
+CTOF_DEL    ---     0.408      R8C11C.C0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.606   (34.5% logic, 65.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C12B.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_12:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C12B.CLK:1.797">       M7.PADDI to R8C12B.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.836ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_11">SSD_ADC/sigma_i11</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.592ns  (43.5% logic, 56.5% route), 5 logic levels.
+
+ Constraint Details:
+
+      4.592ns physical path delay SSD_ADC/SLICE_11 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.836ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C13B.CLK,R8C13B.Q1,SSD_ADC/SLICE_11:ROUTE, 0.816,R8C13B.Q1,R8C11D.B1,SSD_ADC/sigma_11:CTOF_DEL, 0.408,R8C11D.B1,R8C11D.F1,SSD_ADC/SLICE_50:ROUTE, 0.351,R8C11D.F1,R8C11D.C0,SSD_ADC/n22_adj_121:CTOF_DEL, 0.408,R8C11D.C0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_11 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13B.CLK to      R8C13B.Q1 <A href="#@comp:SSD_ADC/SLICE_11">SSD_ADC/SLICE_11</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.816<A href="#@net:SSD_ADC/sigma_11:R8C13B.Q1:R8C11D.B1:0.816">      R8C13B.Q1 to R8C11D.B1     </A> <A href="#@net:SSD_ADC/sigma_11">SSD_ADC/sigma_11</A>
+CTOF_DEL    ---     0.408      R8C11D.B1 to      R8C11D.F1 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.351<A href="#@net:SSD_ADC/n22_adj_121:R8C11D.F1:R8C11D.C0:0.351">      R8C11D.F1 to R8C11D.C0     </A> <A href="#@net:SSD_ADC/n22_adj_121">SSD_ADC/n22_adj_121</A>
+CTOF_DEL    ---     0.408      R8C11D.C0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.592   (43.5% logic, 56.5% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C13B.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_11:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C13B.CLK:1.797">       M7.PADDI to R8C13B.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.873ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.555ns  (43.9% logic, 56.1% route), 5 logic levels.
+
+ Constraint Details:
+
+      4.555ns physical path delay SSD_ADC/SLICE_39 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.873ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C10A.CLK,R8C10A.Q0,SSD_ADC/SLICE_39:ROUTE, 0.779,R8C10A.Q0,R8C11D.A1,SSD_ADC/sigma_0:CTOF_DEL, 0.408,R8C11D.A1,R8C11D.F1,SSD_ADC/SLICE_50:ROUTE, 0.351,R8C11D.F1,R8C11D.C0,SSD_ADC/n22_adj_121:CTOF_DEL, 0.408,R8C11D.C0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_39 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C10A.CLK to      R8C10A.Q0 <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/SLICE_39</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.779<A href="#@net:SSD_ADC/sigma_0:R8C10A.Q0:R8C11D.A1:0.779">      R8C10A.Q0 to R8C11D.A1     </A> <A href="#@net:SSD_ADC/sigma_0">SSD_ADC/sigma_0</A>
+CTOF_DEL    ---     0.408      R8C11D.A1 to      R8C11D.F1 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.351<A href="#@net:SSD_ADC/n22_adj_121:R8C11D.F1:R8C11D.C0:0.351">      R8C11D.F1 to R8C11D.C0     </A> <A href="#@net:SSD_ADC/n22_adj_121">SSD_ADC/n22_adj_121</A>
+CTOF_DEL    ---     0.408      R8C11D.C0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.555   (43.9% logic, 56.1% route), 5 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 1.948ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/sigma_i8</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_39">SSD_ADC/sigma_i0</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+
+   Delay:               4.480ns  (35.5% logic, 64.5% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.480ns physical path delay SSD_ADC/SLICE_9 to SSD_ADC/SLICE_39 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 1.948ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C13A.CLK,R8C13A.Q0,SSD_ADC/SLICE_9:ROUTE, 0.753,R8C13A.Q0,R7C12C.D1,SSD_ADC/sigma_8:CTOF_DEL, 0.408,R7C12C.D1,R7C12C.F1,SSD_ADC/SLICE_46:ROUTE, 0.952,R7C12C.F1,R8C11C.C0,SSD_ADC/n20_adj_120:CTOF_DEL, 0.408,R8C11C.C0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.359,R8C11C.F0,R8C11C.C1,SSD_ADC/clk_in_c_enable_13:CTOF_DEL, 0.408,R8C11C.C1,R8C11C.F1,SSD_ADC/SLICE_49:ROUTE, 0.825,R8C11C.F1,R8C10A.CE,SSD_ADC/clk_in_c_enable_12">Data path</A> SSD_ADC/SLICE_9 to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13A.CLK to      R8C13A.Q0 <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/SLICE_9</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.753<A href="#@net:SSD_ADC/sigma_8:R8C13A.Q0:R7C12C.D1:0.753">      R8C13A.Q0 to R7C12C.D1     </A> <A href="#@net:SSD_ADC/sigma_8">SSD_ADC/sigma_8</A>
+CTOF_DEL    ---     0.408      R7C12C.D1 to      R7C12C.F1 <A href="#@comp:SSD_ADC/SLICE_46">SSD_ADC/SLICE_46</A>
+ROUTE         1     0.952<A href="#@net:SSD_ADC/n20_adj_120:R7C12C.F1:R8C11C.C0:0.952">      R7C12C.F1 to R8C11C.C0     </A> <A href="#@net:SSD_ADC/n20_adj_120">SSD_ADC/n20_adj_120</A>
+CTOF_DEL    ---     0.408      R8C11C.C0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.359<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C11C.C1:0.359">      R8C11C.F0 to R8C11C.C1     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A>
+CTOF_DEL    ---     0.408      R8C11C.C1 to      R8C11C.F1 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         1     0.825<A href="#@net:SSD_ADC/clk_in_c_enable_12:R8C11C.F1:R8C10A.CE:0.825">      R8C11C.F1 to R8C10A.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_12">SSD_ADC/clk_in_c_enable_12</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.480   (35.5% logic, 64.5% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C13A.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_9:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C13A.CLK:1.797">       M7.PADDI to R8C13A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C10A.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_39:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C10A.CLK:1.797">       M7.PADDI to R8C10A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+<font color=#000000> 
+
+Passed: The following path meets requirements by 2.062ns
+ </font>
+ Logical Details:  Cell type  Pin type       Cell/ASIC name  (clock net +/-)
+
+   Source:         FF         Q              <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/sigma_i9</A>  (from <A href="#@net:clk_in_c">clk_in_c</A> +)
+   Destination:    FF         Data in        <A href="#@comp:SSD_ADC/SLICE_8">SSD_ADC/sigma_i7</A>  (to <A href="#@net:clk_in_c">clk_in_c</A> +)
+                   FF                        <A href="#@net:SSD_ADC/sigma_i6">SSD_ADC/sigma_i6</A>
+
+   Delay:               4.366ns  (36.4% logic, 63.6% route), 4 logic levels.
+
+ Constraint Details:
+
+      4.366ns physical path delay SSD_ADC/SLICE_9 to SSD_ADC/SLICE_8 meets
+      6.645ns delay constraint less
+      0.000ns skew and
+      0.217ns CE_SET requirement (totaling 6.428ns) by 2.062ns
+
+ Physical Path Details:
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:REG_DEL, 0.367,R8C13A.CLK,R8C13A.Q1,SSD_ADC/SLICE_9:ROUTE, 0.814,R8C13A.Q1,R7C12D.D0,SSD_ADC/sigma_9:CTOF_DEL, 0.408,R7C12D.D0,R7C12D.F0,SSD_ADC/SLICE_45:ROUTE, 0.843,R7C12D.F0,R8C11D.D0,SSD_ADC/n16_adj_122:CTOF_DEL, 0.408,R8C11D.D0,R8C11D.F0,SSD_ADC/SLICE_50:ROUTE, 0.242,R8C11D.F0,R8C11C.D0,SSD_ADC/n24_adj_119:CTOF_DEL, 0.408,R8C11C.D0,R8C11C.F0,SSD_ADC/SLICE_49:ROUTE, 0.876,R8C11C.F0,R8C12D.CE,SSD_ADC/clk_in_c_enable_13">Data path</A> SSD_ADC/SLICE_9 to SSD_ADC/SLICE_8:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+REG_DEL     ---     0.367     R8C13A.CLK to      R8C13A.Q1 <A href="#@comp:SSD_ADC/SLICE_9">SSD_ADC/SLICE_9</A> (from <A href="#@net:clk_in_c">clk_in_c</A>)
+ROUTE         3     0.814<A href="#@net:SSD_ADC/sigma_9:R8C13A.Q1:R7C12D.D0:0.814">      R8C13A.Q1 to R7C12D.D0     </A> <A href="#@net:SSD_ADC/sigma_9">SSD_ADC/sigma_9</A>
+CTOF_DEL    ---     0.408      R7C12D.D0 to      R7C12D.F0 <A href="#@comp:SSD_ADC/SLICE_45">SSD_ADC/SLICE_45</A>
+ROUTE         1     0.843<A href="#@net:SSD_ADC/n16_adj_122:R7C12D.F0:R8C11D.D0:0.843">      R7C12D.F0 to R8C11D.D0     </A> <A href="#@net:SSD_ADC/n16_adj_122">SSD_ADC/n16_adj_122</A>
+CTOF_DEL    ---     0.408      R8C11D.D0 to      R8C11D.F0 <A href="#@comp:SSD_ADC/SLICE_50">SSD_ADC/SLICE_50</A>
+ROUTE         1     0.242<A href="#@net:SSD_ADC/n24_adj_119:R8C11D.F0:R8C11C.D0:0.242">      R8C11D.F0 to R8C11C.D0     </A> <A href="#@net:SSD_ADC/n24_adj_119">SSD_ADC/n24_adj_119</A>
+CTOF_DEL    ---     0.408      R8C11C.D0 to      R8C11C.F0 <A href="#@comp:SSD_ADC/SLICE_49">SSD_ADC/SLICE_49</A>
+ROUTE         8     0.876<A href="#@net:SSD_ADC/clk_in_c_enable_13:R8C11C.F0:R8C12D.CE:0.876">      R8C11C.F0 to R8C12D.CE     </A> <A href="#@net:SSD_ADC/clk_in_c_enable_13">SSD_ADC/clk_in_c_enable_13</A> (to <A href="#@net:clk_in_c">clk_in_c</A>)
+                  --------
+                    4.366   (36.4% logic, 63.6% route), 4 logic levels.
+
+ Clock Skew Details: 
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C13A.CLK,clk_in_c">Source Clock Path</A> clk_in to SSD_ADC/SLICE_9:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C13A.CLK:1.797">       M7.PADDI to R8C13A.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+      <A href="#@path:FREQUENCY NET 'clk_in_c' 150.500000 MHz ;:ROUTE, 1.797,M7.PADDI,R8C12D.CLK,clk_in_c">Destination Clock Path</A> clk_in to SSD_ADC/SLICE_8:
+
+   Name    Fanout   Delay (ns)          Site               Resource
+ROUTE        46     1.797<A href="#@net:clk_in_c:M7.PADDI:R8C12D.CLK:1.797">       M7.PADDI to R8C12D.CLK    </A> <A href="#@net:clk_in_c">clk_in_c</A>
+                  --------
+                    1.797   (0.0% logic, 100.0% route), 0 logic levels.
+
+Report:  188.715MHz is the maximum frequency for this preference.
+
+<A name="Report Summary"></A><B><U><big>Report Summary</big></U></B>
+--------------
+----------------------------------------------------------------------------
+Preference                              |   Constraint|       Actual|Levels
+----------------------------------------------------------------------------
+                                        |             |             |
+FREQUENCY NET "clk_in_c" 150.500000 MHz |             |             |
+;                                       |  150.500 MHz|  188.715 MHz|   5  
+                                        |             |             |
+----------------------------------------------------------------------------
+
+
+All preferences were met.
+
+
+<A name="Clock Domains Analysis"></A><B><U><big>Clock Domains Analysis</big></U></B>
+------------------------
+
+Found 1 clocks:
+
+Clock Domain: <A href="#@net:clk_in_c">clk_in_c</A>   Source: clk_in.PAD   Loads: 46
+   Covered under: FREQUENCY NET "clk_in_c" 150.500000 MHz ;
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 1021 paths, 1 nets, and 330 connections (95.65% coverage)
+

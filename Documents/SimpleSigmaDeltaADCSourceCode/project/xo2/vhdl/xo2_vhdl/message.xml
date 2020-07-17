@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliMessageLog>
+    <Task name="Lattice_Synthesis">
+        <Message>
+            <ID>35002000</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35001781</ID>
+            <Severity>Info</Severity>
+        </Message>
+        <Message>
+            <ID>35921504</ID>
+            <Severity>Info</Severity>
+            <Dynamic></Dynamic>
+            <Dynamic>Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl/xo2_vhdl</Dynamic>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd(66): </Dynamic>
+            <Dynamic>adc_top</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd</Navigation>
+            <Navigation>66</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd(97): </Dynamic>
+            <Dynamic>translated</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd</Navigation>
+            <Navigation>97</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/box_ave.vhd(71): </Dynamic>
+            <Dynamic>box_ave</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/box_ave.vhd</Navigation>
+            <Navigation>71</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/box_ave.vhd(98): </Dynamic>
+            <Dynamic>translated</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/box_ave.vhd</Navigation>
+            <Navigation>98</Navigation>
+        </Message>
+        <Message>
+            <ID>35921012</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/sigmadelta_adc.vhd(67): </Dynamic>
+            <Dynamic>sigmadelta_adc</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/sigmadelta_adc.vhd</Navigation>
+            <Navigation>67</Navigation>
+        </Message>
+        <Message>
+            <ID>35921010</ID>
+            <Severity>Info</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/sigmadelta_adc.vhd(95): </Dynamic>
+            <Dynamic>translated</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/sigmadelta_adc.vhd</Navigation>
+            <Navigation>95</Navigation>
+        </Message>
+        <Message>
+            <ID>35921205</ID>
+            <Severity>Warning</Severity>
+            <Dynamic>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd(87): </Dynamic>
+            <Dynamic>ADC_top</Dynamic>
+            <Dynamic>translated</Dynamic>
+            <Navigation>z:/fpga_flow_detector/documents/simplesigmadeltaadcsourcecode/source/vhdl/adc_top.vhd</Navigation>
+            <Navigation>87</Navigation>
+        </Message>
+        <Message>
+            <ID>35001611</ID>
+            <Severity>Warning</Severity>
+        </Message>
+    </Task>
+</BaliMessageLog>

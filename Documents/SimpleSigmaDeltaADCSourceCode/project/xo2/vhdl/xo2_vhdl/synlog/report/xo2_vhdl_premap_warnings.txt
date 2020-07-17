@@ -1,0 +1,1 @@
+@W: MT529 :"z:\fpga_flow_detector\documents\simplesigmadeltaadcsourcecode\source\vhdl\box_ave.vhd":194:4:194:5|Found inferred clock ADC_top|clk_in which controls 86 sequential elements including SSD_ADC.BA_INST.ave_data_out[11:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 

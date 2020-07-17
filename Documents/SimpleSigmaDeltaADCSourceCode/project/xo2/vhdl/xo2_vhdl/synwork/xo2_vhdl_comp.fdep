@@ -1,0 +1,36 @@
+#OPTIONS:"|-layerid|0|-orig_srs|Z:\\FPGA_Flow_Detector\\Documents\\SimpleSigmaDeltaADCSourceCode\\project\\xo2\\vhdl\\xo2_vhdl\\synwork\\xo2_vhdl_comp.srs|-autotop|-prodtype|synplify_pro|-dspmac|-fixsmult|-infer_seqShift|-nram|-sdff_counter|-divnmod|-nostructver|-encrypt|-pro|-lite|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-ignore_undefined_lib|-lib|work|-lib|work|-lib|work|-lib|work"
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\bin64\\c_vhdl.exe":1554121268
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\location.map":1554143908
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\std.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\snps_haps_pkg.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\std1164.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\numeric.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\umr_capim.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\arith.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\unsigned.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\synpbase\\lib\\vhd\\hyperents.vhd":1554120464
+#CUR:"C:\\lscc\\diamond\\3.11_x64\\cae_library\\synthesis\\vhdl\\machxo2.vhd":1542256332
+#CUR:"Z:\\FPGA_Flow_Detector\\Documents\\SimpleSigmaDeltaADCSourceCode\\source\\vhdl\\box_ave.vhd":1594946446
+#CUR:"Z:\\FPGA_Flow_Detector\\Documents\\SimpleSigmaDeltaADCSourceCode\\source\\vhdl\\sigmadelta_adc.vhd":1594947401
+#CUR:"Z:\\FPGA_Flow_Detector\\Documents\\SimpleSigmaDeltaADCSourceCode\\source\\vhdl\\adc_top.vhd":1594945067
+0			"C:\lscc\diamond\3.11_x64\cae_library\synthesis\vhdl\machxo2.vhd" vhdl
+1			"Z:\FPGA_Flow_Detector\Documents\SimpleSigmaDeltaADCSourceCode\source\vhdl\adc_top.vhd" vhdl
+2			"Z:\FPGA_Flow_Detector\Documents\SimpleSigmaDeltaADCSourceCode\source\vhdl\box_ave.vhd" vhdl
+3			"Z:\FPGA_Flow_Detector\Documents\SimpleSigmaDeltaADCSourceCode\source\vhdl\sigmadelta_adc.vhd" vhdl
+#Dependency Lists(Uses List)
+0 -1
+1 3
+2 -1
+3 2
+#Dependency Lists(Users Of)
+0 -1
+1 -1
+2 3
+3 1
+#Design Unit to File Association
+module work sigmadelta_adc 3
+arch work sigmadelta_adc translated 3
+module work box_ave 2
+arch work box_ave translated 2
+module work adc_top 1
+arch work adc_top translated 1
