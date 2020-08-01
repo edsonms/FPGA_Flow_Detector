@@ -1,0 +1,17 @@
+#Start recording tcl command: 7/16/2020 21:32:19
+#Project Location: Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl; Project name: xo2_vhdl
+prj_project open "Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl/xo2_vhdl.ldf"
+prj_project open "Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl/xo2_vhdl.ldf"
+pwc_command new
+pwc_command exit
+prj_run PAR -impl xo2_vhdl -task IOTiming
+prj_run Synthesis -impl xo2_vhdl -task Lattice_Synthesis
+prj_strgy set_value -strategy Strategy1 syn_vhdl2008=True
+prj_strgy set_value -strategy Strategy1 lse_vhdl2008=True
+prj_run Synthesis -impl xo2_vhdl -task Lattice_Synthesis
+prj_run Synthesis -impl xo2_vhdl -task Lattice_Synthesis
+prj_run PAR -impl xo2_vhdl
+launch_synplify_prj xo2_vhdl
+prj_src add -exclude "Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl/xo2.tpf"
+prj_run PAR -impl xo2_vhdl
+#Stop recording: 7/16/2020 22:07:36
