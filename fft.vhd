@@ -71,7 +71,8 @@ architecture behaviour of fft is
   signal counter0_reg, counter1_reg, counter3_reg, counter4_reg, counter5_reg                                                                                                                                                                          : integer;
   signal counter2_reg                                                                                                                                                                                                                                  : integer := 1;  -- !!!! LEMBRAR DE TIRAR ESSA INICIALIZACAO DE VALOR !!!!!!!
   signal counter0_next, counter1_next, counter_2_next, counter_3_next, counter_4_next, counter_5_next                                                                                                                                                  : integer;
-  signal left_shift_out, right_shift_out, LE_reg, LE_next, LE_D2_reg, LE_D2_next                                                                                                                                                                       : unsigned(7 downto 0);
+  signal LE_D2_reg, LE_D2_next                                                                                                                                                                                                                         : unsigned(7 downto 0);
+  signal left_shift_out, LE_next, LE_reg, right_shift_out                                                                                                                                                                                              : unsigned(8 downto 0);
   signal sin_out, cos_out, inverter_out, adder5_out                                                                                                                                                                                                    : signed(15 downto 0);
   signal butterfly_address_wire, bitrev_address_wire, bitrev_address_reg, read_address_reg, writing_address_reg, writing_address_next, read_address_next, Address3_reg, Address3_next, Address4_wire, Address, Address2                                : std_logic_vector(7 downto 0);
   signal dummy_out1, dummy_out2                                                                                                                                                                                                                        : std_logic_vector(15 downto 0);
@@ -160,7 +161,7 @@ begin
 
   sin_cos_lut_i : sin_cos_lut
     port map (
-      theta   => std_logic_vector(right_shift_out),
+      theta   => std_logic_vector(right_shift_out(7 downto 0)),
       cos_out => dummy_out1,
       sin_out => dummy_out2
       );
@@ -567,7 +568,7 @@ begin
         UR_next        <= (others => '0');
         UI_next        <= (others => '0');
         LE_next        <= left_shift_out;
-        LE_D2_next     <= right_shift_out;
+        LE_D2_next     <= right_shift_out(7 downto 0);
         SR_next        <= (others => '0');
         SI_next        <= (others => '0');
         re_next        <= (others => '0');
@@ -579,7 +580,7 @@ begin
         UR_next        <= x"7FFF";
         UI_next        <= x"0000";
         LE_next        <= left_shift_out;
-        LE_D2_next     <= right_shift_out;
+        LE_D2_next     <= right_shift_out (7 downto 0);
         SR_next        <= cos_out;
         SI_next        <= adder5_out;
         counter_3_next <= 1;
@@ -682,7 +683,7 @@ begin
 
 -- Data path combinational logic
   adder2_out      <= counter2_reg + 1;
-  left_shift_out  <= shift_left(x"02", counter2_reg-1);
+  left_shift_out  <= shift_left('0'& x"02", counter2_reg-1);
   right_shift_out <= shift_right(LE_reg, 1);
   adder3_out      <= counter3_reg + 1;
   sub_out         <= counter3_reg - 1;

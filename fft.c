@@ -81,7 +81,7 @@ jump3:
                                 im[ip]=im[i]-TI;
                                 re[i]=re[i]+TR;
                                 im[i]=im[i]+TI;
-                                if(i==2 || ip==2)
+                                if(i==0 || ip==0)
                                         teste=0;
 
                         }
