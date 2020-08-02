@@ -14,7 +14,7 @@ y=fft(x(1:256),N);
 
 y2 = csvread('fft_output.CSV');
 y2 = y2./32767;
-y2 = y2.*max(x);
+y2 = y2.*(max(x)*100);
 
 dif=y-y2;
 plot(dif);

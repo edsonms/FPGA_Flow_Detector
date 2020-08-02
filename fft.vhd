@@ -22,9 +22,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package frame_packg is
-  constant N   : integer := 256;          -- FFT N.o of points
-  constant NM1 : integer := 255;          -- N-1
-  constant ND2 : integer := 128;          -- N/2
+  constant N   : integer := 256;        -- FFT N.o of points
+  constant NM1 : integer := 255;        -- N-1
+  constant ND2 : integer := 128;        -- N/2
   constant M   : integer := 8;          -- M = log(N)/log(2) // for N=256, M=8
 --type frame_typ is array (NM1 downto 0) of signed(15 downto 0);
 end package frame_packg;
@@ -526,7 +526,7 @@ begin
       counter3_reg <= 1;
       counter4_reg <= sub_out;
       counter5_reg <= adder6_out;
-      UR_reg       <= x"7FFF";
+      UR_reg       <= x"0148";
       UI_reg       <= x"0000";
       LE_reg       <= (others => '0');
       LE_D2_reg    <= (others => '0');
@@ -576,13 +576,12 @@ begin
         TI_next        <= (others => '0');
 
       when loop1 =>
-        UR_next        <= x"7FFF";
+        UR_next        <= x"0148";
         UI_next        <= x"0000";
         LE_next        <= left_shift_out;
         LE_D2_next     <= right_shift_out;
         SR_next        <= cos_out;
         SI_next        <= adder5_out;
-        counter_2_next <= adder2_out;  -- the "L" variable from the first for in the the BASIC FFT example
         counter_3_next <= 1;
 
       when loop2 =>
@@ -656,6 +655,7 @@ begin
         UI_next        <= round_to_16bit(adder10_out);
 
       when update_LE =>
+        counter_2_next <= adder2_out;  -- the "L" variable from the first for in the the BASIC FFT example
         counter_3_next <= 1;
         counter_4_next <= 0;
         counter_5_next <= 0;
@@ -669,7 +669,7 @@ begin
         counter_3_next <= 1;
         counter_4_next <= 0;
         counter_5_next <= 0;
-        UR_next        <= x"7FFF";
+        UR_next        <= x"0148";
         UI_next        <= x"0000";
         LE_next        <= (others => '0');
         LE_D2_next     <= (others => '0');
@@ -713,7 +713,7 @@ begin
   adder10_out <= add_32bit_WithOverflowControl(mult7_out, mult8_out);
 
 -- Data path status Logic
-  counter_2_full <= '1' when counter2_reg >= M                                                                                                                                                                                    else '0';
+  counter_2_full <= '1' when counter2_reg >= M                                                                                                                                                                                   else '0';
   counter_3_full <= '1' when counter3_reg > to_integer(LE_D2_reg)                                                                                                                                                                else '0';
   counter_4_full <= '1' when counter4_reg > NM1                                                                                                                                                                                  else '0';
   sel3           <= '0' when state2_reg = idle                                                                                                                                                                                   else '1';

@@ -80,7 +80,7 @@ jump3:
 
         for (int i = 0; i < N; i += 1)
         {
-                printf( "%f", re[i]);
-                printf( ",%f\n", im[i]);
+                printf( "%f", (re[i]*611*4));
+                printf( ",%f\n", (im[i]*611*4));
         }
 }
