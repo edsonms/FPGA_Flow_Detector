@@ -526,7 +526,7 @@ begin
       counter3_reg <= 1;
       counter4_reg <= sub_out;
       counter5_reg <= adder6_out;
-      UR_reg       <= x"0148";
+      UR_reg       <= x"7FFF";
       UI_reg       <= x"0000";
       LE_reg       <= (others => '0');
       LE_D2_reg    <= (others => '0');
@@ -576,7 +576,7 @@ begin
         TI_next        <= (others => '0');
 
       when loop1 =>
-        UR_next        <= x"0148";
+        UR_next        <= x"7FFF";
         UI_next        <= x"0000";
         LE_next        <= left_shift_out;
         LE_D2_next     <= right_shift_out;
@@ -669,7 +669,7 @@ begin
         counter_3_next <= 1;
         counter_4_next <= 0;
         counter_5_next <= 0;
-        UR_next        <= x"0148";
+        UR_next        <= x"7FFF";
         UI_next        <= x"0000";
         LE_next        <= (others => '0');
         LE_D2_next     <= (others => '0');
