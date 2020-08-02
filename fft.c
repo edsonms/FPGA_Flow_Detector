@@ -1,17 +1,26 @@
 #include <stdio.h>
 #include <math.h>
-#define  N 8
+#define  N 256
 #define  NM1 (N-1)
 #define  ND2 (N/2)
-#define  M 3 // M = log(N)/log(2)
+#define  M 8 // M = log(N)/log(2)
 #define pi 3.14159265
 
 
 int main()
 {
+        FILE *fp = fopen("SAMPLE_Corrigida.CSV","r");
 
-        float re[8]={3, 19, 147, 83, 35, 19, 99, -13};
-        float im[8]={0,0,0,0,0,0,0,0};
+        float re[256]={0};
+        float im[256]={0};
+        double temp;
+
+        for(int i=0;i<256;i++)
+        {
+                fscanf(fp,"%lf",&temp);
+                re[i]=temp;
+        }
+        fclose(fp);
 
         int j = ND2;
         int k;
@@ -58,6 +67,8 @@ jump3:
                 float UI = 0;
                 float SR = cos(pi/LE2);
                 float SI = -sin(pi/LE2);
+                int teste;
+
                 for (int j = 1; j <= LE2; j++)
                 {
                         int jm1 = j-1;
@@ -70,6 +81,8 @@ jump3:
                                 im[ip]=im[i]-TI;
                                 re[i]=re[i]+TR;
                                 im[i]=im[i]+TI;
+                                if(i==2 || ip==2)
+                                        teste=0;
 
                         }
                         TR=UR;
@@ -80,7 +93,7 @@ jump3:
 
         for (int i = 0; i < N; i += 1)
         {
-                printf( "%f", (re[i]*611*4));
-                printf( ",%f\n", (im[i]*611*4));
+                printf( "%f", (re[i]/32767)*611);
+                printf( ",%f\n", (im[i]*611));
         }
 }
