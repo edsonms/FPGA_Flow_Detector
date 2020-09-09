@@ -101,7 +101,7 @@ begin
 
   process(clock, acquire)
   begin
-    clock   <= not(clock)   after 33.3333 ns; -- 15MHz
+    clock   <= not(clock)   after 30 ns; -- 33.33MHz
     acquire <= not(acquire) after 500 us;  -- 1khz
   end process;
 

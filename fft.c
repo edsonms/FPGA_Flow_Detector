@@ -11,11 +11,11 @@ int main()
 {
         FILE *fp = fopen("SAMPLE_Corrigida.CSV","r");
 
-        float re[256]={0};
-        float im[256]={0};
+        float re[N]={0};
+        float im[N]={0};
         double temp;
 
-        for(int i=0;i<256;i++)
+        for(int i=0;i<N;i++)
         {
                 fscanf(fp,"%lf",&temp);
                 re[i]=temp;
@@ -52,12 +52,12 @@ jump3:
                 j=j+k;
         }
 
-        for (int i = 0; i < N; i += 1)
+        /*for (int i = 0; i < N; i += 1)
         {
                 printf( "%f", re[i]);
                 printf( ",%f\n", im[i]);
-        }
-        printf("\n");
+        }*/
+        //printf("\n");
 
         for (int L = 1; L <= M; L++)
         {
@@ -75,14 +75,14 @@ jump3:
                         for (int i = jm1; i <= NM1; i=i+LE)
                         {
                                 int ip = i + LE2;
+                                if(i==1 || ip==1)
+                                        teste=0;
                                 TR = re[ip]*UR - im[ip]*UI;
                                 TI = re[ip]*UI + im[ip]*UR;
                                 re[ip]=re[i]-TR;
                                 im[ip]=im[i]-TI;
                                 re[i]=re[i]+TR;
                                 im[i]=im[i]+TI;
-                                if(i==0 || ip==0)
-                                        teste=0;
 
                         }
                         TR=UR;
@@ -93,7 +93,7 @@ jump3:
 
         for (int i = 0; i < N; i += 1)
         {
-                printf( "%f", (re[i]/32767)*611);
-                printf( ",%f\n", (im[i]*611));
+                printf( "%f", (re[i]/32767)*611*64);
+                printf( ",%f\n", (im[i]*611*64));
         }
 }

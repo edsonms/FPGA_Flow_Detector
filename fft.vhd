@@ -99,7 +99,7 @@ architecture behaviour of fft is
 
   component sin_cos_lut is
     port (
-      theta   : in  std_logic_vector(7 downto 0);
+      theta   : in  std_logic_vector(8 downto 0);
       cos_out : out std_logic_vector(15 downto 0);
       sin_out : out std_logic_vector(15 downto 0)
       );
@@ -161,7 +161,7 @@ begin
 
   sin_cos_lut_i : sin_cos_lut
     port map (
-      theta   => std_logic_vector(right_shift_out(7 downto 0)),
+      theta   => std_logic_vector(right_shift_out),
       cos_out => dummy_out1,
       sin_out => dummy_out2
       );
@@ -408,9 +408,9 @@ begin
   adder0_out <= counter0_reg + 1;
   adder1_out <= counter1_reg + 1;
   inv_port   <= not(sel1_reg);
-  and_port   <= inv_port and acquire;
+  and_port   <= (inv_port and acquire) when counter0_reg < N else '0';
   inv_port2  <= not(sel2_reg);
-  and_port2  <= inv_port2 and acquire;
+  and_port2  <= (inv_port2 and acquire) when counter0_reg < N else '0';
 
 -- Data path status Logic
   counter0_full <= '0' when state_reg = idle else '1' when counter0_reg = NM1;
@@ -714,7 +714,7 @@ begin
   adder10_out <= add_32bit_WithOverflowControl(mult7_out, mult8_out);
 
 -- Data path status Logic
-  counter_2_full <= '1' when counter2_reg >= M                                                                                                                                                                                   else '0';
+  counter_2_full <= '1' when counter2_reg > M                                                                                                                                                                                    else '0';
   counter_3_full <= '1' when counter3_reg > to_integer(LE_D2_reg)                                                                                                                                                                else '0';
   counter_4_full <= '1' when counter4_reg > NM1                                                                                                                                                                                  else '0';
   sel3           <= '0' when state2_reg = idle                                                                                                                                                                                   else '1';

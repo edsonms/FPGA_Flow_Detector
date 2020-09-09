@@ -1,0 +1,8 @@
+#Start recording tcl command: 8/22/2020 19:01:56
+#Project Location: Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl; Project name: xo2_vhdl
+prj_project open "Z:/FPGA_Flow_Detector/Documents/SimpleSigmaDeltaADCSourceCode/project/xo2/vhdl/xo2_vhdl.ldf"
+prj_run Map -impl xo2_vhdl
+pwc_command new
+pwc_command exit
+prj_project close
+#Stop recording: 8/22/2020 19:05:11

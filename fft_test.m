@@ -13,7 +13,7 @@ y=fft(x(1:256),N);
 
 y2 = csvread('fft_output.CSV');
 y2 = y2./32767;
-y2 = y2.*(max(x)*100);
+y2 = y2.*(max(x)*64);
 y2_real=y2(:,1);
 y2_imag=y2(:,2);
 y2=complex(y2_real,y2_imag);

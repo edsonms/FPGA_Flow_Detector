@@ -1,5 +1,5 @@
 // Verilog netlist produced by program LSE :  version Diamond (64-bit) 3.11.2.446
-// Netlist written on Thu Jul 16 21:57:02 2020
+// Netlist written on Sat Aug 22 19:02:11 2020
 //
 // Verilog Description of module ADC_top
 //
