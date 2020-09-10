@@ -5,4 +5,11 @@
 *.cf
 *.exe
 *.SchDocPreview
-*..PcbDocPreview
+*.PcbDocPreview
+*.zip
+*.icloud
+*.txt
+*.csv
+*.db
+*.pdf
+*.srf
