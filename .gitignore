@@ -13,3 +13,7 @@
 *.db
 *.pdf
 *.srf
+*vunit_out/
+*Documents/SimpleSigmaDeltaADCSourceCode/
+*Makefile
+*Makefile 2
